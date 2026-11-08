@@ -91,6 +91,11 @@ shot home-390-light-top / 390 light 2 top
 shot home-390-dark-top  / 390 dark 2 top
 shot home-390-controls-light "/&at=controls" 390 light 2 top
 shot home-390-devices-dark "/&at=devices" 390 dark 2 top
+# The Pre-Recording section close up, both widths and both modes.
+shot prerec-1440-light "/&at=features" 1440 light 1 top
+shot prerec-1440-dark  "/&at=features" 1440 dark 1 top
+shot prerec-390-light  "/&at=features" 390 light 2 top
+shot prerec-390-dark   "/&at=features" 390 dark 2 top
 shot privacy-1440-light /privacy/ 1440 light 1 top
 shot privacy-390-dark   /privacy/ 390 dark 2 top
 shot pairing-390-light  /pairing-protocol/ 390 light 2 top
