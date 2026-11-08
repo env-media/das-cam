@@ -161,7 +161,8 @@ h1, h2, h3 {
   font-size: 1.0625rem;
   text-decoration: none;
 }
-.brand img { width: 1.75rem; height: 1.75rem; border-radius: 22.5%; }
+.brand img { display: block; width: 1.75rem; height: 1.75rem; border-radius: 22.5%; }
+.brand picture { display: block; flex: none; }
 .site-nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; margin: 0; padding: 0; list-style: none; }
 .site-nav a {
   font-family: var(--mono);

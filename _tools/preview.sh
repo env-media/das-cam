@@ -42,6 +42,12 @@ addEventListener("load", function () {
   d.setAttribute("data-w", d.scrollWidth);
   d.setAttribute("data-h", d.scrollHeight);
   d.setAttribute("data-dark", matchMedia("(prefers-color-scheme: dark)").matches);
+  var img = document.querySelector(".site-header .brand img"), links = document.querySelectorAll(".site-header .site-nav a");
+  var r = img.getBoundingClientRect(), name = document.querySelector(".site-header .brand span").getBoundingClientRect();
+  var last = links[links.length - 1].getBoundingClientRect(), first = null;
+  for (var i = 0; i < links.length; i++) { var b = links[i].getBoundingClientRect(); if (b.width) { first = b; break; } }
+  d.setAttribute("data-hdr", ["icon", r.left, r.top, r.width, r.height, "iconmid", r.top + r.height / 2, "namemid", name.top + name.height / 2,
+    "links", first.left, last.right, last.top + last.height / 2].map(function (x) { return typeof x === "number" ? x.toFixed(1) : x; }).join(" "));
 });
 JS
 # Chrome's window is at least 500 px wide, so every page is shown in an iframe of
@@ -53,7 +59,7 @@ var q = new URLSearchParams(location.search), f = document.getElementById("f");
 f.width = q.get("w"); f.height = q.get("h"); f.src = q.get("src");
 f.onload = function () {
   var d = f.contentDocument.documentElement, r = document.documentElement;
-  ["data-w", "data-h", "data-dark"].forEach(function (k) { r.setAttribute(k, d.getAttribute(k)); });
+  ["data-w", "data-h", "data-dark", "data-hdr"].forEach(function (k) { r.setAttribute(k, d.getAttribute(k) || ""); });
   var at = q.get("at") && f.contentDocument.getElementById(q.get("at"));
   if (at) f.contentWindow.scrollTo({ top: at.getBoundingClientRect().top - 16, behavior: "instant" });
 };
@@ -74,6 +80,11 @@ measure() { # path width mode -> "w h dark"
     --virtual-time-budget=4000 --dump-dom "$U/frame.html?w=$2&h=900&src=$1" 2>/dev/null |
     python3 -c 'import re,sys; s=sys.stdin.read(); print(*[re.search(k+r"=\"([^\"]*)\"", s).group(1) for k in ("data-w","data-h","data-dark")])'
 }
+header() { # path width -> the header's icon box and link positions, for comparing pages
+  "$CHROME" --headless=new --disable-gpu --hide-scrollbars "$(scheme light)" --window-size="$(win "$2")",900 \
+    --virtual-time-budget=4000 --dump-dom "$U/frame.html?w=$2&h=900&src=$1" 2>/dev/null |
+    python3 -c 'import re,sys; s=sys.stdin.read(); m=re.search(r"data-hdr=\"([^\"]*)\"", s); print(m.group(1) if m else "none")'
+}
 shot() { # name path width mode scale full|top
   read -r w h dk < <(measure "$2" "$3" "$4")
   local height=$h; [ "$6" = top ] && height=$(( h < 1100 ? h : 1100 ))
@@ -92,6 +103,13 @@ shot home-390-dark-top  / 390 dark 2 top
 shot home-390-controls-light "/&at=controls" 390 light 2 top
 shot home-390-devices-dark "/&at=devices" 390 dark 2 top
 shot sec-devices-1440-light "/&at=devices" 1440 light 1 top
+# The header on each page, for comparing them.
+shot hdr-home-1440-light / 1440 light 2 top
+shot hdr-privacy-1440-light /privacy/ 1440 light 2 top
+shot hdr-pairing-1440-dark /pairing-protocol/ 1440 dark 2 top
+shot hdr-home-390-dark / 390 dark 2 top
+shot hdr-privacy-390-dark /privacy/ 390 dark 2 top
+shot hdr-pairing-390-light /pairing-protocol/ 390 light 2 top
 # The Pre-Recording section close up, both widths and both modes.
 shot prerec-1440-light "/&at=features" 1440 light 1 top
 shot prerec-1440-dark  "/&at=features" 1440 dark 1 top
@@ -131,5 +149,11 @@ for u in / /privacy/ /pairing-protocol/; do
       read -r w h dk < <(measure "$u" "$wd" "$m")
       printf 'check %-20s width %4s %-5s page width %4s %s\n' "$u" "$wd" "$m" "$w" "$([ "$w" -le "$wd" ] && echo ok || echo SIDEWAYS)"
     done
+  done
+done
+# The header must sit identically on every page.
+for wd in 1440 390; do
+  for u in / /privacy/ /pairing-protocol/; do
+    printf 'header %-20s width %4s  %s\n' "$u" "$wd" "$(header "$u" "$wd")"
   done
 done
