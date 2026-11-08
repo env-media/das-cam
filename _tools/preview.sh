@@ -23,10 +23,13 @@ import re, sys
 layout, md, live, out = sys.argv[1:]
 title = re.search(r'^title:\s*(.+)$', open(md).read(), re.M).group(1).strip()
 html = open(live).read()
-body = re.search(r'<div class="container-lg px-3 my-5 markdown-body">(.*?)</div>\s*<script', html, re.S).group(1)
-# The theme puts a site-title link above the content: it is the theme's, not the page's.
-body, n = re.subn(r'^\s*<h1><a href="[^"]*">[^<]*</a></h1>', '', body)
-assert n == 1, "the theme's title link was not found"
+m = re.search(r'<main id="main" class="prose">\s*<div class="wrap">\n(.*?)\n  </div>\s*</main>', html, re.S)
+if m:  # the live site already uses this site's layout
+    body = m.group(1)
+else:  # the GitHub theme's layout (before 1267ffc); its site-title link is the theme's, not the page's
+    body = re.search(r'<div class="container-lg px-3 my-5 markdown-body">(.*?)</div>\s*<script', html, re.S).group(1)
+    body, n = re.subn(r'^\s*<h1><a href="[^"]*">[^<]*</a></h1>', '', body)
+    assert n == 1, "the theme's title link was not found"
 page = open(layout).read().replace('{{ page.title }}', title).replace('{{ content }}', body)
 open(out, 'w').write(page)
 PY
@@ -86,6 +89,8 @@ shot home-390-light  / 390 light 2 full
 shot home-390-dark   / 390 dark 2 full
 shot home-390-light-top / 390 light 2 top
 shot home-390-dark-top  / 390 dark 2 top
+shot home-390-controls-light "/&at=controls" 390 light 2 top
+shot home-390-devices-dark "/&at=devices" 390 dark 2 top
 shot privacy-1440-light /privacy/ 1440 light 1 top
 shot privacy-390-dark   /privacy/ 390 dark 2 top
 shot pairing-390-light  /pairing-protocol/ 390 light 2 top
