@@ -46,8 +46,10 @@ addEventListener("load", function () {
   var r = img.getBoundingClientRect(), name = document.querySelector(".site-header .brand span").getBoundingClientRect();
   var last = links[links.length - 1].getBoundingClientRect(), first = null;
   for (var i = 0; i < links.length; i++) { var b = links[i].getBoundingClientRect(); if (b.width) { first = b; break; } }
+  var fi = document.querySelector(".site-footer .brand img").getBoundingClientRect(), fn = document.querySelector(".site-footer .brand span").getBoundingClientRect();
   d.setAttribute("data-hdr", ["icon", r.left, r.top, r.width, r.height, "iconmid", r.top + r.height / 2, "namemid", name.top + name.height / 2,
-    "links", first.left, last.right, last.top + last.height / 2].map(function (x) { return typeof x === "number" ? x.toFixed(1) : x; }).join(" "));
+    "links", first.left, last.right, last.top + last.height / 2,
+    "footer-iconmid", fi.top + fi.height / 2, "footer-namemid", fn.top + fn.height / 2, "footer-icon", fi.width].map(function (x) { return typeof x === "number" ? x.toFixed(1) : x; }).join(" "));
 });
 JS
 # Chrome's window is at least 500 px wide, so every page is shown in an iframe of
@@ -88,6 +90,7 @@ header() { # path width -> the header's icon box and link positions, for compari
 shot() { # name path width mode scale full|top
   read -r w h dk < <(measure "$2" "$3" "$4")
   local height=$h; [ "$6" = top ] && height=$(( h < 1100 ? h : 1100 ))
+  case "$6" in [0-9]*) height=$6 ;; esac   # a number: exactly one screen of that height
   "$CHROME" --headless=new --disable-gpu --hide-scrollbars "$(scheme "$4")" --window-size="$(win "$3")","$height" \
     --force-device-scale-factor="$5" --virtual-time-budget=4000 --screenshot="$OUT/$1.png" \
     "$U/frame.html?w=$3&h=$height&src=$2" >/dev/null 2>&1
@@ -103,6 +106,14 @@ shot home-390-dark-top  / 390 dark 2 top
 shot home-390-controls-light "/&at=controls" 390 light 2 top
 shot home-390-devices-dark "/&at=devices" 390 dark 2 top
 shot sec-devices-1440-light "/&at=devices" 1440 light 1 top
+# The hero as one screen at common sizes, the closing call and the footer.
+shot hero-1440x900-light / 1440 light 1 900
+shot hero-1440x900-dark  / 1440 dark 1 900
+shot hero-390x844-light  / 390 light 2 844
+shot hero-390x844-dark   / 390 dark 2 844
+shot join-1440-light "/&at=join" 1440 light 1 top
+shot join-390-dark   "/&at=join" 390 dark 2 top
+shot footer-1440-dark "/&at=footer" 1440 dark 2 top
 # The header on each page, for comparing them.
 shot hdr-home-1440-light / 1440 light 2 top
 shot hdr-privacy-1440-light /privacy/ 1440 light 2 top

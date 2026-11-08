@@ -161,7 +161,7 @@ h1, h2, h3 {
   font-size: 1.0625rem;
   text-decoration: none;
 }
-.brand img { display: block; width: 1.75rem; height: 1.75rem; border-radius: 22.5%; }
+.brand img { display: block; width: 2.125rem; height: 2.125rem; border-radius: 22.5%; }
 .brand picture { display: block; flex: none; }
 .site-nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; margin: 0; padding: 0; list-style: none; }
 .site-nav a {
@@ -217,7 +217,7 @@ h1, h2, h3 {
 
 .hero { padding-block: clamp(1.25rem, 3vw, 2.5rem) clamp(2.5rem, 6vw, 4.5rem); }
 .viewfinder {
-  padding: clamp(4rem, 8vw, 6.5rem) clamp(1.25rem, 5vw, 4rem);
+  padding: clamp(3.75rem, 6vw, 4.75rem) clamp(1.25rem, 5vw, 4rem);
   text-align: center;
   background:
     linear-gradient(var(--grid) 0 0) 33.333% 0 / 1px 100% no-repeat,
@@ -242,7 +242,21 @@ h1, h2, h3 {
 .vf-bottom { bottom: clamp(1rem, 2.5vw, 1.5rem); }
 .rec { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--ink); }
 .vf-body { max-width: 62rem; margin-inline: auto; }
-.hero h1 { font-size: clamp(2.5rem, 1.5rem + 4.2vw, 5.25rem); margin-top: 1.25rem; }
+/* The name as a lockup: the icon and "Das Cam", heavy sans-serif, apart from the serif headline. */
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+  font-family: var(--sans);
+  font-size: clamp(2rem, 1.6rem + 1.1vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ink);
+}
+.lockup img { display: block; width: 1.45em; height: 1.45em; border-radius: 22.5%; flex: none; }
+.hero h1 { font-size: clamp(2.25rem, 1.4rem + 3.6vw, 4.5rem); margin-top: 1rem; }
 .lead { margin: 1.5rem auto 0; max-width: 40rem; color: var(--ink-2); font-size: clamp(1.125rem, 1rem + 0.35vw, 1.3125rem); }
 .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 2.25rem; }
 .fine { margin: 1.25rem auto 0; max-width: 36rem; color: var(--ink-2); font-size: 0.9375rem; }
@@ -410,7 +424,7 @@ h1, h2, h3 {
 .hero-grid { display: grid; gap: 2.75rem; justify-items: center; }
 @media (min-width: 60rem) {
   .hero-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(15rem, 21rem);
+    grid-template-columns: minmax(0, 1fr) minmax(13rem, 16rem);
     align-items: center;
     justify-items: stretch;
     gap: clamp(2.5rem, 5vw, 5rem);
@@ -418,8 +432,8 @@ h1, h2, h3 {
   }
   .hero-grid .actions { justify-content: flex-start; }
   .hero-grid .lead, .hero-grid .fine { margin-left: 0; }
-  .hero h1 { font-size: clamp(2.5rem, 1.2rem + 3.4vw, 4.5rem); }
-  .shot-hero { max-width: 21rem; }
+  .hero h1 { font-size: clamp(2.25rem, 1.1rem + 2.6vw, 4rem); }
+  .shot-hero { max-width: 16rem; }
 }
 .split-shot h2 + p { margin-top: 1.25rem; }
 @media (min-width: 56rem) {
@@ -531,6 +545,9 @@ h1, h2, h3 {
   .clapper-body { grid-template-columns: minmax(0, 1fr) auto; }
 }
 .clapper h2 { font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem); margin-top: 0.75rem; }
+.with-icon { display: flex; align-items: center; gap: 0.6em; }
+.section h2.with-icon { max-width: none; }
+.with-icon img { display: block; width: 1.15em; height: 1.15em; border-radius: 22.5%; flex: none; }
 .clapper p.text { margin: 1rem 0 0; max-width: 34rem; color: var(--ink-2); }
 
 /* Who makes it: small, quiet text after the closing call */
