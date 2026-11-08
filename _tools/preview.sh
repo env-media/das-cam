@@ -96,6 +96,11 @@ shot prerec-1440-light "/&at=features" 1440 light 1 top
 shot prerec-1440-dark  "/&at=features" 1440 dark 1 top
 shot prerec-390-light  "/&at=features" 390 light 2 top
 shot prerec-390-dark   "/&at=features" 390 dark 2 top
+# The Pre-Recording film strip close up.
+shot strip-1440-light "/&at=clip-diagram" 1440 light 1 top
+shot strip-1440-dark "/&at=clip-diagram" 1440 dark 1 top
+shot strip-390-light "/&at=clip-diagram" 390 light 2 top
+shot strip-390-dark "/&at=clip-diagram" 390 dark 2 top
 # The maker section close up.
 shot maker-1440-light "/&at=maker" 1440 light 1 top
 shot maker-390-dark   "/&at=maker" 390 dark 2 top
@@ -106,6 +111,7 @@ shot sec-controls-1440-dark "/&at=controls" 1440 dark 1 top
 shot sec-controls-1440-light "/&at=controls" 1440 light 1 top
 shot sec-controls-390-light "/&at=controls" 390 light 2 top
 shot sec-controls-320-dark "/&at=controls" 320 dark 2 top
+shot sec-controls-390-dark "/&at=controls" 390 dark 2 top
 # A section label close up (01 Pre-Recording), and the hero image on a desktop.
 shot label-1440-light "/&at=features" 1440 light 2 top
 shot hero-1440-dark "/" 1440 dark 1 top

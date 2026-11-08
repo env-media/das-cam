@@ -335,22 +335,13 @@ h1, h2, h3 {
   aspect-ratio: 9 / 16;
   overflow: hidden;
   border-radius: 2px;
-  background: linear-gradient(#3b4049, #23262d 78%, #1e231e 78%);
+  background: linear-gradient(#3b4049, #23262d);
 }
+.scene-svg { display: block; width: 100%; height: 100%; }
 @media (min-width: 48rem) {
   .frame { aspect-ratio: 3 / 4; }
 }
 .frame.before { outline: 1px dashed var(--ink); outline-offset: 2px; }
-.frame .ball { position: absolute; width: 20%; aspect-ratio: 1; border-radius: 50%; background: #f1eee7; }
-.reticle { position: absolute; inset: -70%; border: 1.5px solid var(--yellow); }
-.f1 .ball { left: 8%;  bottom: 22%; }
-.f2 .ball { left: 20%; bottom: 46%; }
-.f3 .ball { left: 32%; bottom: 64%; }
-.f4 .ball { left: 42%; bottom: 72%; }
-.f5 .ball { left: 52%; bottom: 66%; }
-.f6 .ball { left: 62%; bottom: 50%; }
-.f7 .ball { left: 70%; bottom: 33%; }
-.f8 .ball { left: 72%; bottom: 22%; }
 .tap-line { align-self: stretch; background: var(--red); }
 .stop-line { align-self: stretch; background: var(--ink); }
 .tl-tap {
@@ -426,15 +417,26 @@ h1, h2, h3 {
   .split-shot.shot-left { grid-template-columns: minmax(14rem, 19rem) minmax(0, 1fr); }
   .split-shot.shot-left > .shot { order: -1; }
 }
-.spec-shots { display: grid; gap: 2.5rem; margin-top: 3rem; }
-.spec-shots .spec { margin-top: 0; }
-@media (min-width: 60rem) {
-  .spec-shots { grid-template-columns: minmax(0, 1fr) minmax(0, 31rem); align-items: start; gap: 3rem; }
-  .spec-shots.shot-left { grid-template-columns: minmax(0, 31rem) minmax(0, 1fr); }
-  .spec-shots.shot-left > .shot-pair { order: -1; }
+.spec-shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: "spec spec" "a b";
+  gap: 1rem;
+  margin-top: 3rem;
 }
-.shot-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.shot-pair .shot { max-width: 15rem; }
+.spec-shots .spec { grid-area: spec; margin: 0 0 1.5rem; }
+.spec-shots .shot-a { grid-area: a; }
+.spec-shots .shot-b { grid-area: b; }
+.spec-shots .shot { max-width: 15rem; }
+@media (min-width: 60rem) {
+  .spec-shots {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) minmax(0, 15rem);
+    grid-template-areas: "a spec b";
+    gap: 3rem;
+    align-items: center;
+  }
+  .spec-shots .spec { margin: 0; }
+}
 
 /* Camera controls: focus and exposure screens, then a spec sheet */
 
