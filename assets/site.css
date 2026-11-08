@@ -273,6 +273,8 @@ h1, h2, h3 {
   color: var(--ink);
 }
 .section .slate { max-width: none; }
+.slate span { min-width: 0; }
+.slate b + span { flex: 1 1 10rem; }
 .slate b { color: var(--red-text); font-weight: 700; }
 .slate .tc { margin-left: auto; color: var(--ink-2); font-size: 0.8125rem; font-weight: 400; letter-spacing: 0.08em; }
 .section h2 { font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem); max-width: 20ch; }

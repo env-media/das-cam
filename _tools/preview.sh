@@ -103,6 +103,9 @@ shot maker-390-dark   "/&at=maker" 390 dark 2 top
 shot sec-pairing-1440-light "/&at=pairing" 1440 light 1 top
 shot sec-pairing-390-dark   "/&at=pairing" 390 dark 2 top
 shot sec-controls-1440-dark "/&at=controls" 1440 dark 1 top
+shot sec-controls-1440-light "/&at=controls" 1440 light 1 top
+shot sec-controls-390-light "/&at=controls" 390 light 2 top
+shot sec-controls-320-dark "/&at=controls" 320 dark 2 top
 # A section label close up (01 Pre-Recording), and the hero image on a desktop.
 shot label-1440-light "/&at=features" 1440 light 2 top
 shot hero-1440-dark "/" 1440 dark 1 top
