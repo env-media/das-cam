@@ -99,6 +99,10 @@ shot prerec-390-dark   "/&at=features" 390 dark 2 top
 # The maker section close up.
 shot maker-1440-light "/&at=maker" 1440 light 1 top
 shot maker-390-dark   "/&at=maker" 390 dark 2 top
+# The Pairing and Camera controls sections close up (each beside its App Store image).
+shot sec-pairing-1440-light "/&at=pairing" 1440 light 1 top
+shot sec-pairing-390-dark   "/&at=pairing" 390 dark 2 top
+shot sec-controls-1440-dark "/&at=controls" 1440 dark 1 top
 # The beta section (what you need, feedback) close up.
 shot beta-1440-light "/&at=requirements" 1440 light 1 top
 shot beta-390-dark   "/&at=feedback" 390 dark 2 top

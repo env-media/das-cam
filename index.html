@@ -41,15 +41,18 @@
     <div class="wrap">
       <div class="viewfinder framed">
         <div class="vf-top" aria-hidden="true"><span class="rec"><span class="rec-dot"></span>Rec</span><span>00:00:03:12</span></div>
-        <div class="vf-body">
-          <p class="label">For filmmakers on iPhone and iPad</p>
-          <h1 id="hero-title">Your video starts before you tap Record.</h1>
-          <p class="lead">Das Cam is a camera app for enthusiast and professional filmmakers who film with an iPhone or iPad. While Pre-Recording is on, it keeps the last few seconds of video, so your clip includes what happened just before you tapped Record.</p>
-          <div class="actions">
-            <a class="btn btn-rec" href="https://testflight.apple.com/join/zVCSNrWY">Join the beta</a>
-            <a class="btn btn-line" href="#features">See what it does</a>
+        <div class="vf-body hero-grid">
+          <div class="hero-text">
+            <p class="label">For filmmakers on iPhone and iPad</p>
+            <h1 id="hero-title">Your video starts before you tap Record.</h1>
+            <p class="lead">Das Cam is a camera app for enthusiast and professional filmmakers who film with an iPhone or iPad. While Pre-Recording is on, it keeps the last few seconds of video, so your clip includes what happened just before you tapped Record.</p>
+            <div class="actions">
+              <a class="btn btn-rec" href="https://testflight.apple.com/join/zVCSNrWY">Join the beta</a>
+              <a class="btn btn-line" href="#features">See what it does</a>
+            </div>
+            <p class="fine">The beta is on Apple’s TestFlight. It needs iOS or iPadOS 17.4 or later, and runs on devices as old as the iPhone XS and the 2017 iPad Pro. <a href="#devices">See which models</a>.</p>
           </div>
-          <p class="fine">The beta is on Apple’s TestFlight. It needs iOS or iPadOS 17.4 or later, and runs on devices as old as the iPhone XS and the 2017 iPad Pro. <a href="#devices">See which models</a>.</p>
+          <figure class="shot shot-hero"><img src="assets/shots/shot-1-720.jpg" srcset="assets/shots/shot-1-400.jpg 400w, assets/shots/shot-1-720.jpg 720w" sizes="(min-width: 60rem) 21rem, 18rem" width="720" height="1557" fetchpriority="high" decoding="async" alt="App Store image: an iPhone running Das Cam records a skateboarder in the air. The words read “Turn your iPhone into an action cam”, beside the Das Cam app icon."></figure>
         </div>
         <div class="vf-bottom" aria-hidden="true"><span>Das Cam</span><span>iPhone · iPad</span></div>
       </div>
@@ -59,12 +62,13 @@
   <section class="section" id="features" aria-labelledby="prerec-title">
     <div class="wrap">
       <p class="slate"><b>01</b><span>Pre-Recording</span><span class="tc" aria-hidden="true">00:00:12:00</span></p>
-      <div class="split">
-        <h2 id="prerec-title">Tap Record after the moment happens, and still keep it.</h2>
+      <div class="split split-shot shot-left">
         <div>
+          <h2 id="prerec-title">Tap Record after the moment happens, and still keep it.</h2>
           <p>Some moments cannot be planned: a kick, a surprise goal, a fly ball, or a small child doing something funny. You only know a moment is worth filming after it has happened. A normal recording starts when you tap Record, and by then the moment is over.</p>
           <p>With Pre-Recording on and your device aimed at the subject, the camera keeps the last few seconds of video. When you tap Record, those seconds become the start of your clip, and the clip goes on recording until you stop it. So the saved clip has both parts: the seconds before the tap, and everything after it.</p>
         </div>
+        <figure class="shot"><img src="assets/shots/shot-2-720.jpg" srcset="assets/shots/shot-2-400.jpg 400w, assets/shots/shot-2-720.jpg 720w" sizes="(min-width: 56rem) 19rem, 18rem" width="720" height="1557" loading="lazy" decoding="async" alt="App Store image: a skateboarder’s jump and surprised reaction, on two iPhones running Das Cam with Pre-Recording on. The words read “Capture the moment before you tap”."></figure>
       </div>
       <figure class="filmstrip monitor" role="img" aria-label="Diagram of a clip made with Pre-Recording, drawn as a strip of film. A ball rises and falls across eight frames. The ball is highest in the fourth frame, before you tap Record. The first four frames are kept by Pre-Recording, and the last four are recorded after the tap, until you stop recording. The saved clip includes all eight frames, so the highest point is in the video.">
         <div class="perfs"></div>
@@ -99,29 +103,13 @@
   <section class="section band" id="pairing" aria-labelledby="pairing-title">
     <div class="wrap">
       <p class="slate"><b>02</b><span>Pairing</span><span class="tc" aria-hidden="true">00:00:24:00</span></p>
-      <div class="split split-center">
+      <div class="split split-shot">
         <div>
           <h2 id="pairing-title">Watch and control the camera from another device.</h2>
           <p class="intro">Use a second iPhone or iPad as a remote monitor. It shows the camera’s live picture, and it starts and stops recording from a distance, so the camera can stay where the shot is while you watch and control it from somewhere else. The two devices can swap roles at any time.</p>
           <p>The two devices connect directly to each other. <a href="pairing-protocol/">Read how pairing protects the connection</a>.</p>
         </div>
-        <figure class="panel monitor framed" role="img" aria-label="Diagram of two paired devices. The Recorder is the camera. The Controller is a second iPhone or iPad that shows the Recorder's live picture and has a record button. A line between them shows that they connect directly and can swap roles.">
-          <div class="pair">
-            <div class="device recorder">
-              <div class="device-body"><div class="device-screen scene"></div></div>
-              <span class="device-label">Recorder<span class="device-sub">the camera</span></span>
-            </div>
-            <div class="link-line">
-              <svg class="swap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8h15M15 4l4 4-4 4M20 16H5M9 12l-4 4 4 4"/></svg>
-              <span class="dash"></span>
-              <span>Direct<br>connection</span>
-            </div>
-            <div class="device controller">
-              <div class="device-body"><div class="device-screen"><div class="mini scene"></div><div class="rec-button"></div></div></div>
-              <span class="device-label">Controller<span class="device-sub">the remote</span></span>
-            </div>
-          </div>
-        </figure>
+        <figure class="shot"><img src="assets/shots/shot-3-720.jpg" srcset="assets/shots/shot-3-400.jpg 400w, assets/shots/shot-3-720.jpg 720w" sizes="(min-width: 56rem) 19rem, 18rem" width="720" height="1560" loading="lazy" decoding="async" alt="App Store image: two paired iPhones at a skate park. One, on a tripod, records as the Recorder; the other, held in a hand, shows the live picture as the Controller. The words read “See your shot. Control it remotely.”"></figure>
       </div>
     </div>
   </section>
@@ -147,14 +135,20 @@
           <p>Exposure has its own point, apart from focus, and its own lock. Or set ISO and shutter by hand. The shutter shows as an angle and as a speed.</p>
         </div>
       </div>
-      <dl class="spec spec-2">
-        <div><dt>Modes</dt><dd>HD at 30, 60 and 240 frames per second, and 4K at 30, 60 and 120, depending on your device. 4K and HD at 240 are part of Das Cam Premium.</dd></div>
-        <div><dt>Codec</dt><dd>Every mode records HEVC (H.265) video.</dd></div>
-        <div><dt>Stabilization</dt><dd>Steadier video when the camera moves.</dd></div>
-        <div><dt>Zoom</dt><dd>Tap to change the zoom level.</dd></div>
-        <div><dt>Flashlight</dt><dd>Turn on your device’s light when the scene is dark.</dd></div>
-        <div><dt>Volume buttons</dt><dd>Press a volume button to record.</dd></div>
-      </dl>
+      <div class="spec-shots shot-left">
+        <dl class="spec">
+          <div><dt>Modes</dt><dd>HD at 30, 60 and 240 frames per second, and 4K at 30, 60 and 120, depending on your device. 4K and HD at 240 are part of Das Cam Premium.</dd></div>
+          <div><dt>Codec</dt><dd>Every mode records HEVC (H.265) video.</dd></div>
+          <div><dt>Stabilization</dt><dd>Steadier video when the camera moves.</dd></div>
+          <div><dt>Zoom</dt><dd>Tap to change the zoom level.</dd></div>
+          <div><dt>Flashlight</dt><dd>Turn on your device’s light when the scene is dark.</dd></div>
+          <div><dt>Volume buttons</dt><dd>Press a volume button to record.</dd></div>
+        </dl>
+        <div class="shot-pair">
+          <figure class="shot"><img src="assets/shots/shot-4-720.jpg" srcset="assets/shots/shot-4-400.jpg 400w, assets/shots/shot-4-720.jpg 720w" sizes="(min-width: 60rem) 15rem, 45vw" width="720" height="1557" loading="lazy" decoding="async" alt="App Store image: Das Cam’s stabilization menu, with Off, Standard and Cinematic, over a skateboarding shot. The words read “Keep the action steady”."></figure>
+          <figure class="shot"><img src="assets/shots/shot-5-720.jpg" srcset="assets/shots/shot-5-400.jpg 400w, assets/shots/shot-5-720.jpg 720w" sizes="(min-width: 60rem) 15rem, 45vw" width="720" height="1557" loading="lazy" decoding="async" alt="App Store image: Das Cam’s capture mode list and its lens buttons (0.5, 1 and 2). The words read “Shoot it your way”."></figure>
+        </div>
+      </div>
     </div>
   </section>
 
