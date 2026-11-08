@@ -313,11 +313,23 @@ h1, h2, h3 {
 .perfs { height: 0.55rem; background: repeating-linear-gradient(90deg, rgb(241 238 231 / 0.3) 0 0.85rem, transparent 0.85rem 1.7rem); }
 .perfs:first-child { margin-bottom: 1rem; }
 .perfs:last-child { margin-top: 1rem; }
+/* On a phone the strip is two rows: the kept frames, the tap, then the recorded frames and the stop.
+   From 48rem it is one row with the tap and the stop as upright lines. */
 .timeline {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) 3px repeat(4, minmax(0, 1fr)) 3px;
-  column-gap: clamp(0.25rem, 1vw, 0.6rem);
-  row-gap: 0.75rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    "lb lb lb lb"
+    "f1 f2 f3 f4"
+    "tap tap tap tap"
+    "tapl tapl tapl tapl"
+    "la la la la"
+    "f5 f6 f7 f8"
+    "stop stop stop stop"
+    "stopl stopl stopl stopl"
+    "clip clip clip clip";
+  column-gap: 0.4rem;
+  row-gap: 0.6rem;
   align-items: end;
 }
 .tl-label {
@@ -328,27 +340,23 @@ h1, h2, h3 {
   line-height: 1.35;
   color: var(--ink-2);
 }
-.tl-label-before { grid-column: 1 / 5; color: var(--ink); }
-.tl-label-after { grid-column: 6 / 11; text-align: right; }
+.tl-label-before { grid-area: lb; color: var(--ink); }
+.tl-label-after { grid-area: la; margin-top: 0.75rem; }
+.f1 { grid-area: f1; } .f2 { grid-area: f2; } .f3 { grid-area: f3; } .f4 { grid-area: f4; }
+.f5 { grid-area: f5; } .f6 { grid-area: f6; } .f7 { grid-area: f7; } .f8 { grid-area: f8; }
 .frame {
   position: relative;
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 2px;
   background: linear-gradient(#3b4049, #23262d);
 }
 .scene-svg { display: block; width: 100%; height: 100%; }
-@media (min-width: 48rem) {
-  .frame { aspect-ratio: 3 / 4; }
-}
 .frame.before { outline: 1px dashed var(--ink); outline-offset: 2px; }
-.tap-line { align-self: stretch; background: var(--red); }
-.stop-line { align-self: stretch; background: var(--ink); }
-.tl-tap {
-  grid-row: 3;
-  grid-column: 1 / 10;
+.tap-line { grid-area: tap; height: 3px; align-self: center; background: var(--red); }
+.stop-line { grid-area: stop; height: 3px; align-self: center; background: var(--ink); }
+.tl-tap, .tl-stop {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--mono);
@@ -356,28 +364,13 @@ h1, h2, h3 {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.tl-stop {
-  grid-row: 4;
-  grid-column: 1 / 11;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.45rem;
-  font-family: var(--mono);
-  font-size: 0.8125rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
+.tl-tap { grid-area: tapl; }
+.tl-stop { grid-area: stopl; }
 .stop-mark { width: 0.6rem; height: 0.6rem; background: var(--ink); flex: none; }
-@media (min-width: 48rem) {
-  .tl-stop { grid-row: 3; grid-column: 8 / 11; }
-  .tl-clip { grid-row: 4; }
-}
 .tl-clip {
-  grid-row: 5;
-  grid-column: 1 / 11;
+  grid-area: clip;
   position: relative;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   padding-top: 0.6rem;
   border-top: 1px solid var(--ink-2);
   text-align: center;
@@ -390,6 +383,23 @@ h1, h2, h3 {
 .tl-clip::before, .tl-clip::after { content: ""; position: absolute; top: -0.55rem; width: 1px; height: 0.55rem; background: var(--ink-2); }
 .tl-clip::before { left: 0; }
 .tl-clip::after { right: 0; }
+@media (min-width: 48rem) {
+  .timeline {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 3px repeat(4, minmax(0, 1fr)) 3px;
+    grid-template-areas: none;
+    column-gap: clamp(0.25rem, 1vw, 0.6rem);
+    row-gap: 0.75rem;
+  }
+  .tl-label-before { grid-area: 1 / 1 / 2 / 5; }
+  .tl-label-after { grid-area: 1 / 6 / 2 / 11; margin-top: 0; text-align: right; }
+  .f1 { grid-area: 2 / 1; } .f2 { grid-area: 2 / 2; } .f3 { grid-area: 2 / 3; } .f4 { grid-area: 2 / 4; }
+  .tap-line { grid-area: 2 / 5; height: auto; align-self: stretch; }
+  .f5 { grid-area: 2 / 6; } .f6 { grid-area: 2 / 7; } .f7 { grid-area: 2 / 8; } .f8 { grid-area: 2 / 9; }
+  .stop-line { grid-area: 2 / 10; height: auto; align-self: stretch; }
+  .tl-tap { grid-area: 3 / 1 / 4 / 10; justify-content: center; }
+  .tl-stop { grid-area: 3 / 8 / 4 / 11; justify-content: flex-end; }
+  .tl-clip { grid-area: 4 / 1 / 5 / 11; }
+}
 .caption { margin: 1rem 0 0; color: var(--ink-2); font-size: 0.9375rem; }
 
 /* App Store images, beside the section each one shows */
