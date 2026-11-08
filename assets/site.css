@@ -545,9 +545,10 @@ h1, h2, h3 {
   .clapper-body { grid-template-columns: minmax(0, 1fr) auto; }
 }
 .clapper h2 { font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem); margin-top: 0.75rem; }
-.with-icon { display: flex; align-items: center; gap: 0.6em; }
-.section h2.with-icon { max-width: none; }
-.with-icon img { display: block; width: 1.15em; height: 1.15em; border-radius: 22.5%; flex: none; }
+/* The icon inside a heading, just left of "Das Cam", at the type's height; the two never wrap apart. */
+.name-with-icon { white-space: nowrap; }
+.name-with-icon img { display: inline-block; width: 0.82em; height: 0.82em; margin-right: 0.18em; border-radius: 22.5%; vertical-align: -0.08em; }
+.clapper h2 { max-width: none; }
 .clapper p.text { margin: 1rem 0 0; max-width: 34rem; color: var(--ink-2); }
 
 /* Who makes it: small, quiet text after the closing call */

@@ -113,6 +113,7 @@ shot hero-390x844-light  / 390 light 2 844
 shot hero-390x844-dark   / 390 dark 2 844
 shot join-1440-light "/&at=join" 1440 light 1 top
 shot join-390-dark   "/&at=join" 390 dark 2 top
+shot join-320-light  "/&at=join" 320 light 2 top
 shot footer-1440-dark "/&at=footer" 1440 dark 2 top
 # The header on each page, for comparing them.
 shot hdr-home-1440-light / 1440 light 2 top
