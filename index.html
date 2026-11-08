@@ -7,8 +7,7 @@
 <title>Das Cam: your video starts before you tap Record</title>
 <meta name="description" content="Das Cam is a camera app for filmmakers who film with an iPhone or iPad. With Pre-Recording, your clip starts a few seconds before you tap Record. Join the beta on TestFlight.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0a0b0f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#060607">
 <meta property="og:title" content="Das Cam">
 <meta property="og:description" content="A camera app for filmmakers on iPhone and iPad. With Pre-Recording, your clip starts a few seconds before you tap Record.">
 <meta property="og:type" content="website">
@@ -19,15 +18,16 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header">
+<header class="site-header monitor">
   <div class="wrap">
     <a class="brand" href="./">
-      <img src="assets/icon.png" alt="" width="64" height="64">
+      <img src="assets/icon-dark.png" alt="" width="64" height="64">
       <span>Das Cam</span>
     </a>
     <nav class="site-nav" aria-label="Main">
       <ul>
         <li class="wide-only"><a href="#features">Features</a></li>
+        <li class="wide-only"><a href="#devices">Devices</a></li>
         <li class="wide-only"><a href="#feedback">Feedback</a></li>
         <li><a href="privacy/">Privacy</a></li>
       </ul>
@@ -37,84 +37,79 @@
 
 <main id="main">
 
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="wrap hero-grid">
-      <div>
-        <picture>
-          <source srcset="assets/icon-dark.png" media="(prefers-color-scheme: dark)">
-          <img class="app-icon" src="assets/icon.png" alt="Das Cam app icon" width="256" height="256">
-        </picture>
-        <p class="eyebrow">For filmmakers on iPhone and iPad</p>
-        <h1 id="hero-title">Your video starts before you tap Record.</h1>
-        <p class="lead">Das Cam is a camera app for enthusiast and professional filmmakers who film with an iPhone or iPad. While Pre-Recording is on, it keeps the last few seconds of video, so your clip includes what happened just before you tapped Record.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="https://testflight.apple.com/join/zVCSNrWY">
-            Join the beta
-            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
-          </a>
-          <a class="btn btn-ghost" href="#features">See what it does</a>
-        </div>
-        <p class="fine">The beta is on Apple’s TestFlight. It needs iOS or iPadOS 17.4 or later, and runs on devices as old as the iPhone XS and the 2017 iPad Pro. <a href="#devices">See which models</a>.</p>
-      </div>
-
-      <div>
-        <figure class="diagram" role="img" aria-label="Diagram of a clip made with Pre-Recording. A ball rises and falls across eight video frames. The ball is highest in the fourth frame, before the moment you tap Record. The saved clip includes all eight frames, so the highest point is in the video.">
-          <div class="timeline">
-            <span class="tl-label tl-label-before">Kept by Pre-Recording</span>
-            <span class="tl-label tl-label-after">Recorded after the tap</span>
-            <div class="frame before f1"><span class="ball"></span></div>
-            <div class="frame before f2"><span class="ball"></span></div>
-            <div class="frame before f3"><span class="ball"></span></div>
-            <div class="frame before moment f4"><span class="ball"></span></div>
-            <div class="tap-line"></div>
-            <div class="frame f5"><span class="ball"></span></div>
-            <div class="frame f6"><span class="ball"></span></div>
-            <div class="frame f7"><span class="ball"></span></div>
-            <div class="frame f8"><span class="ball"></span></div>
-            <div class="tl-tap"><span class="rec-dot"></span>You tap Record</div>
-            <div class="tl-clip">Your saved clip</div>
+  <section class="hero monitor" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="viewfinder framed">
+        <div class="vf-top" aria-hidden="true"><span class="rec"><span class="rec-dot"></span>Rec</span><span>00:00:03:12</span></div>
+        <div class="vf-body">
+          <p class="label">For filmmakers on iPhone and iPad</p>
+          <h1 id="hero-title">Your video starts before you tap Record.</h1>
+          <p class="lead">Das Cam is a camera app for enthusiast and professional filmmakers who film with an iPhone or iPad. While Pre-Recording is on, it keeps the last few seconds of video, so your clip includes what happened just before you tapped Record.</p>
+          <div class="actions">
+            <a class="btn btn-rec" href="https://testflight.apple.com/join/zVCSNrWY">Join the beta</a>
+            <a class="btn btn-line" href="#features">See what it does</a>
           </div>
-        </figure>
-        <p class="diagram-caption">The moment came before the tap, and it is still in the clip.</p>
+          <p class="fine">The beta is on Apple’s TestFlight. It needs iOS or iPadOS 17.4 or later, and runs on devices as old as the iPhone XS and the 2017 iPad Pro. <a href="#devices">See which models</a>.</p>
+        </div>
+        <div class="vf-bottom" aria-hidden="true"><span>Das Cam</span><span>iPhone · iPad</span></div>
       </div>
     </div>
   </section>
 
-  <section class="section section-soft" id="features" aria-labelledby="prerec-title">
-    <div class="wrap split">
-      <div>
-        <p class="kicker">Before the tap</p>
-        <h2 id="prerec-title">Pre-Recording</h2>
-        <p>The camera keeps a few seconds of video in the background. When you tap Record, your clip starts a few seconds before the tap.</p>
-        <p>It is made for moments you cannot plan for:</p>
-        <ul class="chips">
-          <li>Documentary</li>
-          <li>Sports</li>
-          <li>Wildlife</li>
-          <li>Street</li>
-        </ul>
+  <section class="section" id="features" aria-labelledby="prerec-title">
+    <div class="wrap">
+      <p class="slate"><b>01</b><span>Pre-Recording</span><span class="tc" aria-hidden="true">00:00:12:00</span></p>
+      <div class="split">
+        <h2 id="prerec-title">Keep the seconds before you tap Record.</h2>
+        <div>
+          <p>The camera keeps a few seconds of video in the background. When you tap Record, your clip starts a few seconds before the tap.</p>
+          <p>It is made for moments you cannot plan for:</p>
+          <ul class="tags">
+            <li>Documentary</li>
+            <li>Sports</li>
+            <li>Wildlife</li>
+            <li>Street</li>
+          </ul>
+        </div>
       </div>
-      <div class="card">
-        <h3>How it works</h3>
-        <ol class="steps">
-          <li><span>Open Das Cam. With Pre-Recording on, the camera keeps the last few seconds of video.</span></li>
-          <li><span>Something happens. Tap Record.</span></li>
-          <li><span>Your clip starts a few seconds before the tap.</span></li>
-        </ol>
-      </div>
+      <figure class="filmstrip monitor" role="img" aria-label="Diagram of a clip made with Pre-Recording, drawn as a strip of film. A ball rises and falls across eight frames. The ball is highest in the fourth frame, before the moment you tap Record. The saved clip includes all eight frames, so the highest point is in the video.">
+        <div class="perfs"></div>
+        <div class="timeline">
+          <span class="tl-label tl-label-before">Kept by Pre-Recording</span>
+          <span class="tl-label tl-label-after">Recorded after the tap</span>
+          <div class="frame before f1"><span class="ball"></span></div>
+          <div class="frame before f2"><span class="ball"></span></div>
+          <div class="frame before f3"><span class="ball"></span></div>
+          <div class="frame before f4"><span class="ball"><span class="reticle"></span></span></div>
+          <div class="tap-line"></div>
+          <div class="frame f5"><span class="ball"></span></div>
+          <div class="frame f6"><span class="ball"></span></div>
+          <div class="frame f7"><span class="ball"></span></div>
+          <div class="frame f8"><span class="ball"></span></div>
+          <div class="tl-tap"><span class="rec-dot"></span>You tap Record</div>
+          <div class="tl-clip">Your saved clip</div>
+        </div>
+        <div class="perfs"></div>
+      </figure>
+      <p class="caption">The moment came before the tap, and it is still in the clip.</p>
+      <ol class="steps">
+        <li><span class="label">Before the tap</span>With Pre-Recording on, the camera keeps the last few seconds of video.</li>
+        <li><span class="label">The tap</span>Something happens, and you tap Record.</li>
+        <li><span class="label">The clip</span>Your clip starts a few seconds before the tap.</li>
+      </ol>
     </div>
   </section>
 
-  <section class="section" id="pairing" aria-labelledby="pairing-title">
-    <div class="wrap split reverse">
-      <div>
-        <p class="kicker">Two devices</p>
-        <h2 id="pairing-title">Pairing</h2>
-        <p>Use a second iPhone or iPad as a remote monitor. It shows the camera’s live picture, and it starts and stops recording from a distance, so the camera can stay where the shot is while you watch and control it from somewhere else. The two devices can swap roles at any time.</p>
-        <p>The two devices connect directly to each other. <a href="pairing-protocol/">Read how pairing protects the connection</a>.</p>
-      </div>
-      <div>
-        <figure class="diagram" role="img" aria-label="Diagram of two paired devices. The Recorder is the camera. The Controller is a second iPhone or iPad that shows the Recorder's live picture and has a record button. A line between them shows that they connect directly and can swap roles.">
+  <section class="section band" id="pairing" aria-labelledby="pairing-title">
+    <div class="wrap">
+      <p class="slate"><b>02</b><span>Pairing</span><span class="tc" aria-hidden="true">00:00:24:00</span></p>
+      <div class="split split-center">
+        <div>
+          <h2 id="pairing-title">Watch and control the camera from another device.</h2>
+          <p class="intro">Use a second iPhone or iPad as a remote monitor. It shows the camera’s live picture, and it starts and stops recording from a distance, so the camera can stay where the shot is while you watch and control it from somewhere else. The two devices can swap roles at any time.</p>
+          <p>The two devices connect directly to each other. <a href="pairing-protocol/">Read how pairing protects the connection</a>.</p>
+        </div>
+        <figure class="panel monitor framed" role="img" aria-label="Diagram of two paired devices. The Recorder is the camera. The Controller is a second iPhone or iPad that shows the Recorder's live picture and has a record button. A line between them shows that they connect directly and can swap roles.">
           <div class="pair">
             <div class="device recorder">
               <div class="device-body"><div class="device-screen scene"></div></div>
@@ -135,113 +130,91 @@
     </div>
   </section>
 
-  <section class="section section-soft" id="controls" aria-labelledby="controls-title">
+  <section class="section" id="controls" aria-labelledby="controls-title">
     <div class="wrap">
-      <p class="kicker">Control the image</p>
-      <h2 id="controls-title">Camera controls</h2>
-      <p class="section-intro">Focus and exposure are separate controls, so you set each one on its own for fine control.</p>
-      <ul class="tiles tiles-featured">
-        <li class="tile tile-feature">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 8.5V5.5A1.5 1.5 0 0 1 5.5 4h3M15.5 4h3A1.5 1.5 0 0 1 20 5.5v3M20 15.5v3a1.5 1.5 0 0 1-1.5 1.5h-3M8.5 20h-3A1.5 1.5 0 0 1 4 18.5v-3"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+      <p class="slate"><b>03</b><span>Camera controls</span><span class="tc" aria-hidden="true">00:00:36:00</span></p>
+      <h2 id="controls-title">Control the image yourself.</h2>
+      <p class="intro">Focus and exposure are separate controls, so you set each one on its own for fine control.</p>
+      <div class="controls">
+        <div class="control">
+          <div class="screen screen-focus monitor framed" aria-hidden="true">
+            <span class="mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false"><rect x="5" y="5" width="30" height="30"/><path d="M20 5v4M20 31v4M5 20h4M31 20h4"/></svg><span>Focus</span></span>
+          </div>
           <h3>Focus</h3>
           <p>Set the focus point on the picture, and hold to lock it. Or focus by hand with the focus wheel.</p>
-        </li>
-        <li class="tile tile-feature">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg></span>
+        </div>
+        <div class="control">
+          <div class="screen screen-exposure monitor framed" aria-hidden="true">
+            <span class="mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" focusable="false"><circle cx="20" cy="20" r="8"/><path d="M20 3v5M20 32v5M3 20h5M32 20h5M8 8l3.5 3.5M28.5 28.5 32 32M8 32l3.5-3.5M28.5 11.5 32 8"/></svg><span>Exposure</span></span>
+          </div>
           <h3>Exposure</h3>
           <p>Exposure has its own point, apart from focus, and its own lock. Or set ISO and shutter by hand. The shutter shows as an angle and as a speed.</p>
-        </li>
-      </ul>
-      <ul class="tiles">
-        <li class="tile">
-          <span class="tile-icon" aria-hidden="true">4K</span>
-          <h3>HD and 4K</h3>
-          <p>HD at 30, 60 and 240 frames per second, and 4K at 30, 60 and 120, depending on your device. 4K and HD at 240 are part of Das Cam Premium.</p>
-        </li>
-        <li class="tile">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10.5 5-3v9l-5-3"/></svg></span>
-          <h3>HEVC video</h3>
-          <p>Every mode records HEVC (H.265) video.</p>
-        </li>
-        <li class="tile">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="8" y="5" width="8" height="14" rx="2"/><path d="M4.5 9v6M19.5 9v6M1.75 11v2M22.25 11v2"/></svg></span>
-          <h3>Stabilization</h3>
-          <p>Steadier video when the camera moves.</p>
-        </li>
-        <li class="tile">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg></span>
-          <h3>Zoom</h3>
-          <p>Tap to change the zoom level.</p>
-        </li>
-        <li class="tile">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 3h8v4l-2.5 3.5V20a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-9.5L8 7z"/><path d="M8 7h8M12 13.5v2"/></svg></span>
-          <h3>Flashlight</h3>
-          <p>Turn on your device’s light when the scene is dark.</p>
-        </li>
-        <li class="tile">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="8" y="2.5" width="11" height="19" rx="2.5"/><path d="M4.75 7.5v3M4.75 13v3"/></svg></span>
-          <h3>Volume buttons</h3>
-          <p>Press a volume button to record.</p>
-        </li>
-      </ul>
+        </div>
+      </div>
+      <dl class="spec spec-2">
+        <div><dt>Modes</dt><dd>HD at 30, 60 and 240 frames per second, and 4K at 30, 60 and 120, depending on your device. 4K and HD at 240 are part of Das Cam Premium.</dd></div>
+        <div><dt>Codec</dt><dd>Every mode records HEVC (H.265) video.</dd></div>
+        <div><dt>Stabilization</dt><dd>Steadier video when the camera moves.</dd></div>
+        <div><dt>Zoom</dt><dd>Tap to change the zoom level.</dd></div>
+        <div><dt>Flashlight</dt><dd>Turn on your device’s light when the scene is dark.</dd></div>
+        <div><dt>Volume buttons</dt><dd>Press a volume button to record.</dd></div>
+      </dl>
     </div>
   </section>
 
-  <section class="section" id="devices" aria-labelledby="devices-title">
-    <div class="wrap split">
-      <div>
-        <p class="kicker">Older devices</p>
-        <h2 id="devices-title">Runs on older iPhones and iPads</h2>
-        <p>Das Cam runs on every iPhone and iPad that can run iOS 17.4 or iPadOS 17.4, including models from 2017 and 2018. We test it on an iPhone XS and an iPad Pro <span class="nowrap">10.5-inch</span>.</p>
-        <p>An older device can also be the remote in a pair.</p>
-      </div>
-      <div class="card">
-        <h3>The oldest models it runs on</h3>
-        <dl class="models">
-          <div>
-            <dt>iPhone, with iOS 17.4 or later</dt>
-            <dd>iPhone XS, iPhone XS Max and iPhone XR, from 2018. Every newer iPhone, and iPhone SE (2nd generation) and later.</dd>
-          </div>
-          <div>
-            <dt>iPad, with iPadOS 17.4 or later</dt>
-            <dd>iPad Pro <span class="nowrap">10.5-inch</span> and iPad Pro <span class="nowrap">12.9-inch</span> (2nd generation), from 2017. Every newer iPad Pro, and iPad (6th generation), iPad mini (5th generation) and iPad Air (3rd generation) and later.</dd>
-          </div>
+  <section class="section band" id="devices" aria-labelledby="devices-title">
+    <div class="wrap">
+      <p class="slate"><b>04</b><span>Older devices</span><span class="tc" aria-hidden="true">00:00:48:00</span></p>
+      <div class="split">
+        <div>
+          <h2 id="devices-title">Runs on older iPhones and iPads.</h2>
+          <p class="intro">Das Cam runs on every iPhone and iPad that can run iOS 17.4 or iPadOS 17.4, including models from 2017 and 2018. An older device can also be the remote in a pair.</p>
+        </div>
+        <dl class="spec">
+          <div><dt>iPhone</dt><dd>With iOS 17.4 or later: iPhone XS, iPhone XS Max and iPhone XR, from 2018, and every newer iPhone, including iPhone SE (2nd generation) and later.</dd></div>
+          <div><dt>iPad</dt><dd>With iPadOS 17.4 or later: iPad Pro <span class="nowrap">10.5-inch</span> and iPad Pro <span class="nowrap">12.9-inch</span> (2nd generation), from 2017, and every newer iPad Pro, plus iPad (6th generation), iPad mini (5th generation), iPad Air (3rd generation) and later.</dd></div>
+          <div><dt>Tested on</dt><dd>An iPhone XS and an iPad Pro <span class="nowrap">10.5-inch</span>.</dd></div>
         </dl>
       </div>
     </div>
   </section>
 
-  <section class="section section-soft" aria-label="What you need and how to send feedback">
-    <div class="wrap cards">
-      <div class="card" id="requirements">
-        <h2>What you need</h2>
-        <ul class="checks">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>An iPhone or iPad with iOS or iPadOS 17.4 or later. <a href="#devices">See which models</a>.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>For Pairing, a second iPhone or iPad with Das Cam.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Apple’s TestFlight app. The Join the beta page explains how to get it.</span></li>
-        </ul>
-      </div>
-      <div class="card" id="feedback">
-        <h2>Send feedback</h2>
-        <p class="section-intro">Tell us what works and what does not.</p>
-        <ul class="checks">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span><strong>In the app:</strong> open Settings and tap Report a problem. You see the report before you send it.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg><span><strong>By email:</strong> <a href="mailto:contact@env-media.com">contact@env-media.com</a></span></li>
-        </ul>
+  <section class="section" aria-labelledby="beta-title">
+    <div class="wrap">
+      <p class="slate"><b>05</b><span id="beta-title">The beta</span><span class="tc" aria-hidden="true">00:01:00:00</span></p>
+      <div class="split">
+        <div id="requirements">
+          <h2 class="h-sm">What you need</h2>
+          <ul class="lines">
+            <li>An iPhone or iPad with iOS or iPadOS 17.4 or later. <a href="#devices">See which models</a>.</li>
+            <li>For Pairing, a second iPhone or iPad with Das Cam.</li>
+            <li>Apple’s TestFlight app. The Join the beta page explains how to get it.</li>
+          </ul>
+        </div>
+        <div id="feedback">
+          <h2 class="h-sm">Send feedback</h2>
+          <ul class="lines">
+            <li><span class="label">In the app</span>Open Settings and tap Report a problem. You see the report before you send it.</li>
+            <li><span class="label">By email</span><a href="mailto:contact@env-media.com">contact@env-media.com</a></li>
+          </ul>
+          <p class="intro">Tell us what works and what does not.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section section-tight" aria-labelledby="join-title">
     <div class="wrap">
-      <div class="cta">
-        <img src="assets/icon-dark.png" alt="" width="256" height="256">
-        <h2 id="join-title">Join the Das Cam beta</h2>
-        <p>Try Das Cam on your next project, on the iPhone or iPad you already have, and tell us what works and what does not.</p>
-        <a class="btn" href="https://testflight.apple.com/join/zVCSNrWY">
-          Join the beta
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
-        </a>
+      <div class="clapper monitor">
+        <div class="clapper-bar" aria-hidden="true"></div>
+        <div class="clapper-body">
+          <div>
+            <p class="label" aria-hidden="true">Scene 06 · Take 1</p>
+            <h2 id="join-title">Join the Das Cam beta</h2>
+            <p class="text">Try Das Cam on your next project, on the iPhone or iPad you already have, and tell us what works and what does not.</p>
+          </div>
+          <a class="btn btn-rec" href="https://testflight.apple.com/join/zVCSNrWY">Join the beta</a>
+        </div>
       </div>
     </div>
   </section>
@@ -251,7 +224,13 @@
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-top">
-      <a class="brand" href="./"><img src="assets/icon.png" alt="" width="64" height="64"><span>Das Cam</span></a>
+      <a class="brand" href="./">
+        <picture>
+          <source srcset="assets/icon-dark.png" media="(prefers-color-scheme: dark)">
+          <img src="assets/icon.png" alt="" width="64" height="64">
+        </picture>
+        <span>Das Cam</span>
+      </a>
       <ul class="footer-links">
         <li><a href="privacy/">Privacy policy</a></li>
         <li><a href="pairing-protocol/">How pairing works</a></li>

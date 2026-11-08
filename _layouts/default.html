@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>{{ page.title }}</title>
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0a0b0f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0e" media="(prefers-color-scheme: dark)">
 <!-- This layout serves the Markdown pages, each one folder below the site's
      root (privacy/, pairing-protocol/), so every link starts with "../" and
      the site works at any address. It replaces the GitHub theme's layout,
@@ -23,12 +23,16 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="../">
-      <img src="../assets/icon.png" alt="" width="64" height="64">
+      <picture>
+        <source srcset="../assets/icon-dark.png" media="(prefers-color-scheme: dark)">
+        <img src="../assets/icon.png" alt="" width="64" height="64">
+      </picture>
       <span>Das Cam</span>
     </a>
     <nav class="site-nav" aria-label="Main">
       <ul>
         <li class="wide-only"><a href="../#features">Features</a></li>
+        <li class="wide-only"><a href="../#devices">Devices</a></li>
         <li class="wide-only"><a href="../#feedback">Feedback</a></li>
         <li><a href="../privacy/">Privacy</a></li>
       </ul>
@@ -45,7 +49,13 @@
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-top">
-      <a class="brand" href="../"><img src="../assets/icon.png" alt="" width="64" height="64"><span>Das Cam</span></a>
+      <a class="brand" href="../">
+        <picture>
+          <source srcset="../assets/icon-dark.png" media="(prefers-color-scheme: dark)">
+          <img src="../assets/icon.png" alt="" width="64" height="64">
+        </picture>
+        <span>Das Cam</span>
+      </a>
       <ul class="footer-links">
         <li><a href="../privacy/">Privacy policy</a></li>
         <li><a href="../pairing-protocol/">How pairing works</a></li>
