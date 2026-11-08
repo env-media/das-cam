@@ -252,6 +252,7 @@ h1, h2, h3 {
 .section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
 .band { background: var(--paper-2); }
 .section-tight { padding-top: 0; }
+.band + .section-tight { padding-top: clamp(3.5rem, 8vw, 6.5rem); }
 .slate {
   display: flex;
   align-items: baseline;
@@ -526,6 +527,7 @@ h1, h2, h3 {
 /* The beta: what you need, feedback */
 
 .h-sm { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+.section .h-md { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); max-width: 22ch; }
 .lines { margin: 1.25rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
 .lines li { padding: 0.9rem 0; border-bottom: 1px solid var(--rule); }
 .lines .label { display: block; margin-bottom: 0.2rem; }
