@@ -99,6 +99,9 @@ shot prerec-390-dark   "/&at=features" 390 dark 2 top
 # The maker section close up.
 shot maker-1440-light "/&at=maker" 1440 light 1 top
 shot maker-390-dark   "/&at=maker" 390 dark 2 top
+# The beta section (what you need, feedback) close up.
+shot beta-1440-light "/&at=requirements" 1440 light 1 top
+shot beta-390-dark   "/&at=feedback" 390 dark 2 top
 shot privacy-1440-light /privacy/ 1440 light 1 top
 shot privacy-390-dark   /privacy/ 390 dark 2 top
 shot pairing-390-light  /pairing-protocol/ 390 light 2 top
