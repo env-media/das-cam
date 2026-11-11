@@ -4,7 +4,7 @@ title: Das Cam Privacy Policy
 
 # Das Cam Privacy Policy
 
-Effective date: November 7, 2026
+Effective date: November 11, 2026
 
 ## Who we are
 
@@ -167,7 +167,10 @@ contains:
 - details of the device and the app: the device model, the iOS version, your language and region format, free
   storage, memory, temperature state, when the device last started up, the app's version and build, whether that copy
   came from the App Store, TestFlight or a developer build, your trial or subscription status (for example "trial, 9
-  days left"), and the state of any connection to a paired device.
+  days left"), and the state of any connection to a paired device;
+- the app's support code: a random six-character code the app makes so that we can unlock its developer tools for you
+  if you ask us for help. It identifies no person and links to no account, and it changes once it is used or the app
+  updates.
 
 Send uploads the report to Sentry, which stores it for us in its EU data region. The app sends no user ID, name or
 email address with it, and tells Sentry not to store your IP address. You can tap "Share instead" to send the file
