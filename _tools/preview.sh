@@ -1,14 +1,46 @@
 #!/bin/bash
 # Renders the site with headless Google Chrome for review, without Jekyll.
-#   _tools/preview.sh <out-dir>
+#   _tools/preview.sh <out-dir>          the full set of review shots
+#   _tools/preview.sh <out-dir> theme    the light/dark sheets only
 # index.html is served as it is. The Markdown pages (privacy/, pairing-protocol/)
 # are rendered by wrapping the LIVE site's kramdown output in _layouts/default.html,
 # so they show the published words: a local change to a .md file is not shown.
 # It prints each page's width and height at each size: a width above the window's
 # means the page scrolls sideways. Files beginning with "_" are not published.
+# A shot's mode is the device's setting (light or dark). "&theme=light|dark" in a
+# path stores that choice first, as the header's switch does, so the page's own
+# script applies it; "&pv=..." turns on a preview-only look from preview.css
+# below, which is never part of the site.
 set -euo pipefail
-OUT="${1:?usage: _tools/preview.sh <out-dir>}"
+OUT="${1:?usage: _tools/preview.sh <out-dir> [theme]}"
+SET="${2:-all}"
 SITE="$(cd "$(dirname "$0")/.." && pwd)"
+# Two checks before any picture. Each page's inline script must match the hash in
+# its Content-Security-Policy, or the browser refuses to run it; and site.css's two
+# dark blocks (the device's setting, the switch's choice) must hold the same colours.
+python3 - "$SITE/index.html" "$SITE/_layouts/default.html" "$SITE/assets/site.css" <<'PY'
+import base64, hashlib, re, sys
+for f in sys.argv[1:3]:
+    s = open(f).read()
+    scripts = re.findall(r"<script>(.*?)</script>", s, re.S)
+    assert len(scripts) == 1, f + ": expected one inline script"
+    h = "'sha256-" + base64.b64encode(hashlib.sha256(scripts[0].encode()).digest()).decode() + "'"
+    csp = re.search(r'http-equiv="Content-Security-Policy" content="([^"]*)"', s).group(1)
+    assert h in csp, f + ": the inline script's hash " + h + " is not in the Content-Security-Policy"
+    print("check csp-hash", f.split("/")[-1], "ok", h)
+css = open(sys.argv[3]).read()
+def decls(sel):
+    i = css.index(sel); body = css[css.index("{", i + len(sel) - 1) + 1:css.index("}", i)]
+    return sorted(d.strip() for d in body.split(";") if d.strip().startswith("--"))
+a = decls(':root:not([data-theme="light"]) {'); b = decls(':root[data-theme="dark"] {')
+assert a == b and a, "site.css: the two dark blocks differ"
+print("check dark-blocks identical,", len(a), "colours")
+# The script's browser-bar colours must be the page colours.
+bar = re.search(r'bar = \{ light: "(#[0-9a-f]{6})", dark: "(#[0-9a-f]{6})" \}', open(sys.argv[1]).read()).groups()
+paper = (re.search(r"--paper: (#[0-9a-f]{6})", css).group(1), dict(d.split(": ") for d in a)["--paper"])
+assert bar == paper, "the script's theme-color %s differs from site.css's --paper %s" % (bar, paper)
+print("check theme-color = --paper", bar)
+PY
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 LIVE="https://env-media.github.io/das-cam"
 PORT="${PREVIEW_PORT:-8137}"
@@ -41,12 +73,17 @@ addEventListener("load", function () {
   var d = document.documentElement;
   d.setAttribute("data-w", d.scrollWidth);
   d.setAttribute("data-h", d.scrollHeight);
-  d.setAttribute("data-dark", matchMedia("(prefers-color-scheme: dark)").matches);
-  var img = document.querySelector(".site-header .brand img"), links = document.querySelectorAll(".site-header .site-nav a");
+  d.setAttribute("data-dark", (d.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark");
+  // Each place holds two icons, one hidden; measure the one shown.
+  function shown(sel) { var all = document.querySelectorAll(sel); for (var i = 0; i < all.length; i++) if (all[i].getBoundingClientRect().width) return all[i]; return all[0]; }
+  var sw = document.querySelectorAll(".theme-switch button"), sws = [];
+  for (var k = 0; k < sw.length; k++) { var q = sw[k].getBoundingClientRect(); sws.push(sw[k].getAttribute("data-theme-choice") + ":" + q.width.toFixed(0) + "x" + q.height.toFixed(0) + ":" + sw[k].getAttribute("aria-pressed")); }
+  d.setAttribute("data-switch", sws.join(",") || "none");
+  var img = shown(".site-header .brand img"), links = document.querySelectorAll(".site-header .site-nav a");
   var r = img.getBoundingClientRect(), name = document.querySelector(".site-header .brand span").getBoundingClientRect();
   var last = links[links.length - 1].getBoundingClientRect(), first = null;
   for (var i = 0; i < links.length; i++) { var b = links[i].getBoundingClientRect(); if (b.width) { first = b; break; } }
-  var fi = document.querySelector(".site-footer .brand img").getBoundingClientRect(), fn = document.querySelector(".site-footer .brand span").getBoundingClientRect();
+  var fi = shown(".site-footer .brand img").getBoundingClientRect(), fn = document.querySelector(".site-footer .brand span").getBoundingClientRect();
   d.setAttribute("data-hdr", ["icon", r.left, r.top, r.width, r.height, "iconmid", r.top + r.height / 2, "namemid", name.top + name.height / 2,
     "links", first.left, last.right, last.top + last.height / 2,
     "footer-iconmid", fi.top + fi.height / 2, "footer-namemid", fn.top + fn.height / 2, "footer-icon", fi.width].map(function (x) { return typeof x === "number" ? x.toFixed(1) : x; }).join(" "));
@@ -58,17 +95,44 @@ cat > "$ROOT/frame.html" <<'HTML'
 <!doctype html><html><head><style>html,body{margin:0;background:#808080}iframe{display:block;margin:0 auto;border:0}</style></head>
 <body><iframe id="f"></iframe><script>
 var q = new URLSearchParams(location.search), f = document.getElementById("f");
+// The switch's stored choice, set before the page loads (same origin as the page).
+if (q.get("theme")) localStorage.setItem("das-cam-theme", q.get("theme")); else localStorage.removeItem("das-cam-theme");
 f.width = q.get("w"); f.height = q.get("h"); f.src = q.get("src");
 f.onload = function () {
-  var d = f.contentDocument.documentElement, r = document.documentElement;
-  ["data-w", "data-h", "data-dark", "data-hdr"].forEach(function (k) { r.setAttribute(k, d.getAttribute(k) || ""); });
+  var d = f.contentDocument.documentElement, r = document.documentElement, pv = q.get("pv") || "";
+  if (pv) d.classList.add("pv-" + pv);
+  if (pv === "hover" || pv === "focus") { // the switch's button that is not pressed, hovered or keyboard-focused
+    var b = f.contentDocument.querySelector('.theme-switch button[aria-pressed="false"]');
+    if (pv === "hover") { // copy the stylesheet's own :hover rules for the switch onto a class
+      [].forEach.call(f.contentDocument.styleSheets, function (sh) { var rs; try { rs = sh.cssRules; } catch (e) { return; }
+        [].slice.call(rs).forEach(function (rule) { if (rule.selectorText && rule.selectorText.indexOf("theme-switch") >= 0 && rule.selectorText.indexOf(":hover") >= 0)
+          sh.insertRule(rule.cssText.replace(/:hover/g, ".pv-hover"), sh.cssRules.length); }); });
+      b.classList.add("pv-hover");
+    } else { f.contentWindow.focus(); b.focus(); }
+    d.setAttribute("data-switch", d.getAttribute("data-switch") + " focus-visible:" + b.matches(":focus-visible"));
+  }
+  ["data-w", "data-h", "data-dark", "data-hdr", "data-switch"].forEach(function (k) { r.setAttribute(k, d.getAttribute(k) || ""); });
   var at = q.get("at") && f.contentDocument.getElementById(q.get("at"));
   if (at) f.contentWindow.scrollTo({ top: at.getBoundingClientRect().top - 16, behavior: "instant" });
 };
 </script></body></html>
 HTML
+# preview.css: looks shown only in previews, for AJ to compare. "pv-hero-dark" keeps
+# the header and the hero dark gray (the dark page's colours) whatever the theme.
+cat > "$ROOT/preview.css" <<'CSS'
+.pv-hero-dark .site-header, .pv-hero-dark .hero {
+  color-scheme: dark; --paper: #2b2d33; --paper-2: #32343a; --ink: #ece9e2; --ink-2: #a9a59c;
+  --rule: rgb(236 233 226 / 0.14); --rule-strong: rgb(236 233 226 / 0.5); --frame: rgb(236 233 226 / 0.7);
+  --grid: rgb(236 233 226 / 0.06); --mark: #ffd60a; --red-text: #ff7469; --btn-rec-hover: #ffffff;
+  --shot-shadow: 0 14px 34px rgb(0 0 0 / 0.45); background-color: var(--paper); color: var(--ink);
+}
+.pv-hero-dark .site-header .icon-light, .pv-hero-dark .hero .icon-light { display: none !important; }
+.pv-hero-dark .site-header .icon-dark, .pv-hero-dark .hero .icon-dark { display: block !important; }
+CSS
 for f in "$ROOT/index.html" "$ROOT"/*/index.html; do
-  sed -i '' 's#</head>#<script src="/measure.js"></script></head>#' "$f"
+  # Every image loads and decodes at once in a preview: a shot can end before a lazy or
+  # async one is drawn, and then shows an empty box where the image belongs.
+  sed -i '' -e 's#</head>#<link rel="stylesheet" href="/preview.css"><script src="/measure.js"></script></head>#' -e 's# loading="lazy"##g' -e 's# decoding="async"##g' "$f"
 done
 python3 -m http.server "$PORT" --bind 127.0.0.1 -d "$ROOT" >/dev/null 2>&1 &
 SERVER=$!
@@ -77,26 +141,64 @@ sleep 1
 U="http://127.0.0.1:$PORT"
 scheme() { [ "$1" = dark ] && echo "--blink-settings=preferredColorScheme=0" || echo "--blink-settings=preferredColorScheme=1"; }
 win() { [ "$1" -lt 500 ] && echo 500 || echo "$1"; }
-measure() { # path width mode -> "w h dark"
+measure() { # path width mode -> "w h dark switch"
   "$CHROME" --headless=new --disable-gpu --hide-scrollbars "$(scheme "$3")" --window-size="$(win "$2")",900 \
     --virtual-time-budget=4000 --dump-dom "$U/frame.html?w=$2&h=900&src=$1" 2>/dev/null |
-    python3 -c 'import re,sys; s=sys.stdin.read(); print(*[re.search(k+r"=\"([^\"]*)\"", s).group(1) for k in ("data-w","data-h","data-dark")])'
+    python3 -c 'import re,sys; s=sys.stdin.read(); print(*[re.search(k+r"=\"([^\"]*)\"", s).group(1).replace(" ","_") for k in ("data-w","data-h","data-dark","data-switch")])'
 }
 header() { # path width -> the header's icon box and link positions, for comparing pages
   "$CHROME" --headless=new --disable-gpu --hide-scrollbars "$(scheme light)" --window-size="$(win "$2")",900 \
     --virtual-time-budget=4000 --dump-dom "$U/frame.html?w=$2&h=900&src=$1" 2>/dev/null |
     python3 -c 'import re,sys; s=sys.stdin.read(); m=re.search(r"data-hdr=\"([^\"]*)\"", s); print(m.group(1) if m else "none")'
 }
-shot() { # name path width mode scale full|top
-  read -r w h dk < <(measure "$2" "$3" "$4")
+MOTION="" # set to --force-prefers-reduced-motion for still, repeatable shots
+shot() { # name path width mode scale full|top|<height>
+  read -r w h dk swt < <(measure "$2" "$3" "$4")
   local height=$h; [ "$6" = top ] && height=$(( h < 1100 ? h : 1100 ))
   case "$6" in [0-9]*) height=$6 ;; esac   # a number: exactly one screen of that height
-  "$CHROME" --headless=new --disable-gpu --hide-scrollbars "$(scheme "$4")" --window-size="$(win "$3")","$height" \
+  "$CHROME" --headless=new --disable-gpu --hide-scrollbars "$(scheme "$4")" --window-size="$(win "$3")","$height" ${MOTION:+"$MOTION"} \
     --force-device-scale-factor="$5" --virtual-time-budget=4000 --screenshot="$OUT/$1.png" \
     "$U/frame.html?w=$3&h=$height&src=$2" >/dev/null 2>&1
   sips -c $(( height * $5 )) $(( $3 * $5 )) "$OUT/$1.png" >/dev/null
-  printf '%-22s width %4s  page width %4s  height %5s  dark %s\n' "$1" "$3" "$w" "$h" "$dk"
+  printf '%-30s width %4s  page width %4s %-8s height %5s  dark %-5s  switch %s\n' "$1" "$3" "$w" "$([ "$w" -le "$3" ] && echo ok || echo SIDEWAYS)" "$h" "$dk" "$swt"
 }
+if [ "$SET" = theme ]; then
+  # Reduced motion stops the record dot's pulse, so two shots of the same page are byte-identical.
+  MOTION=--force-prefers-reduced-motion
+  # The whole home page in each mode (the device's setting, nothing stored).
+  shot index-dark-390    / 390 dark 2 full
+  shot index-light-390   / 390 light 2 full
+  shot index-dark-1280   / 1280 dark 1 full
+  shot index-light-1280  / 1280 light 1 full
+  # The switch's choice over the device's setting: each must match the shot above it.
+  shot forced-dark-on-light-device-390 "/&theme=dark" 390 light 2 full
+  shot forced-light-on-dark-device-390 "/&theme=light" 390 dark 2 full
+  cmp -s "$OUT/forced-dark-on-light-device-390.png" "$OUT/index-dark-390.png" && echo "check forced dark = device dark: identical" || echo "check forced dark = device dark: DIFFERENT"
+  cmp -s "$OUT/forced-light-on-dark-device-390.png" "$OUT/index-light-390.png" && echo "check forced light = device light: identical" || echo "check forced light = device light: DIFFERENT"
+  # The privacy page's top, in each mode.
+  shot privacy-top-dark-390  /privacy/ 390 dark 2 844
+  shot privacy-top-light-390 /privacy/ 390 light 2 844
+  # The switch, hovered and keyboard-focused (the button that is not pressed).
+  shot switch-hover-1280-dark  "/&pv=hover" 1280 dark 2 150
+  shot switch-focus-1280-dark  "/&pv=focus" 1280 dark 2 150
+  shot switch-hover-1280-light "/&pv=hover" 1280 light 2 150
+  shot switch-focus-1280-light "/&pv=focus" 1280 light 2 150
+  # The comparison: light mode with the header and hero kept dark gray, beside light mode as built.
+  shot hero-light-as-built-1280  / 1280 light 1 900
+  shot hero-light-kept-dark-1280 "/&pv=hero-dark" 1280 light 1 900
+  shot hero-light-as-built-390   / 390 light 2 844
+  shot hero-light-kept-dark-390  "/&pv=hero-dark" 390 light 2 844
+  # No sideways scroll at 320, 375 and 390, either theme, every page.
+  for u in / /privacy/ /pairing-protocol/; do
+    for wd in 320 375 390; do
+      for m in light dark; do
+        read -r w h dk swt < <(measure "$u" "$wd" "$m")
+        printf 'check %-20s width %4s %-5s page width %4s %-8s switch %s\n' "$u" "$wd" "$m" "$w" "$([ "$w" -le "$wd" ] && echo ok || echo SIDEWAYS)" "$swt"
+      done
+    done
+  done
+  exit 0
+fi
 shot home-1440-light / 1440 light 1 full
 shot home-1440-dark  / 1440 dark 1 full
 shot home-390-light  / 390 light 2 full

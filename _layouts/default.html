@@ -3,15 +3,57 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self' 'sha256-npJ16+W7NGo6q+OSHF3W4l3r4tcs0YEBHpmSdlOsLac='; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>{{ page.title }}</title>
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0d0d0e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#2b2d33" media="(prefers-color-scheme: dark)">
 <!-- This layout serves the Markdown pages, each one folder below the site's
      root (privacy/, pairing-protocol/), so every link starts with "../" and
      the site works at any address. It replaces the GitHub theme's layout,
      which loaded a script from another host. -->
+<!-- Sets the light or dark choice before the page is drawn. Its hash is in the
+     Content-Security-Policy above: change one, change both (_tools/preview.sh checks it). -->
+<script>
+(function () {
+  var root = document.documentElement, key = "das-cam-theme";
+  var dark = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : { matches: false };
+  function stored() {
+    try { var v = localStorage.getItem(key); return v === "light" || v === "dark" ? v : null; } catch (e) { return null; }
+  }
+  function apply(theme) {
+    if (theme) root.setAttribute("data-theme", theme); else root.removeAttribute("data-theme");
+  }
+  apply(stored());
+  document.addEventListener("DOMContentLoaded", function () {
+    var group = document.querySelector(".theme-switch");
+    if (!group) return;
+    var buttons = group.querySelectorAll("button[data-theme-choice]");
+    function show() {
+      var theme = root.getAttribute("data-theme") || (dark.matches ? "dark" : "light");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].setAttribute("aria-pressed", buttons[i].getAttribute("data-theme-choice") === theme ? "true" : "false");
+      }
+      // The browser bar's colour: site.css's --paper for each theme (_tools/preview.sh checks they match).
+      var metas = document.querySelectorAll('meta[name="theme-color"]'), bar = { light: "#f3f1ec", dark: "#2b2d33" }[theme];
+      for (var j = 0; j < metas.length; j++) metas[j].setAttribute("content", bar);
+    }
+    function choose(theme) {
+      // A choice that matches the device's setting is not stored, so the page follows the device again.
+      var device = dark.matches ? "dark" : "light";
+      try { if (theme === device) localStorage.removeItem(key); else localStorage.setItem(key, theme); } catch (e) {}
+      apply(theme === device ? null : theme);
+      show();
+    }
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", function () { choose(this.getAttribute("data-theme-choice")); });
+    }
+    if (dark.addEventListener) dark.addEventListener("change", show); else if (dark.addListener) dark.addListener(show);
+    group.hidden = false;
+    show();
+  });
+})();
+</script>
 <link rel="icon" type="image/png" href="../assets/favicon.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/site.css">
@@ -20,20 +62,26 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header monitor">
+<header class="site-header">
   <div class="wrap">
     <a class="brand" href="../">
-      <img src="../assets/icon-dark.png" alt="" width="64" height="64">
+      <img class="icon-light" src="../assets/icon.png" alt="" width="64" height="64"><img class="icon-dark" src="../assets/icon-dark.png" alt="" width="64" height="64">
       <span>Das Cam</span>
     </a>
-    <nav class="site-nav" aria-label="Main">
-      <ul>
-        <li class="wide-only"><a href="../#features">Features</a></li>
-        <li class="wide-only"><a href="../#devices">Devices</a></li>
-        <li class="wide-only"><a href="../#feedback">Feedback</a></li>
-        <li><a href="../privacy/">Privacy</a></li>
-      </ul>
-    </nav>
+    <div class="header-end">
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li class="wide-only"><a href="../#features">Features</a></li>
+          <li class="wide-only"><a href="../#devices">Devices</a></li>
+          <li class="wide-only"><a href="../#feedback">Feedback</a></li>
+          <li><a href="../privacy/">Privacy</a></li>
+        </ul>
+      </nav>
+      <div class="theme-switch" role="group" aria-label="Appearance" hidden>
+        <button type="button" data-theme-choice="light" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="2.75"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.2 3.2l1.06 1.06M11.74 11.74l1.06 1.06M3.2 12.8l1.06-1.06M11.74 4.26l1.06-1.06"/></svg><span class="word">Light</span></button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.6 10.1A5.9 5.9 0 0 1 5.9 2.4a5.9 5.9 0 1 0 7.7 7.7Z"/></svg><span class="word">Dark</span></button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -47,10 +95,7 @@
   <div class="wrap">
     <div class="footer-top">
       <a class="brand" href="../">
-        <picture>
-          <source srcset="../assets/icon-dark.png" media="(prefers-color-scheme: dark)">
-          <img src="../assets/icon.png" alt="" width="64" height="64">
-        </picture>
+        <img class="icon-light" src="../assets/icon.png" alt="" width="64" height="64"><img class="icon-dark" src="../assets/icon-dark.png" alt="" width="64" height="64">
         <span>Das Cam</span>
       </a>
       <ul class="footer-links">

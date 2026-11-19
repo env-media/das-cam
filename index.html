@@ -3,14 +3,57 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self' 'sha256-npJ16+W7NGo6q+OSHF3W4l3r4tcs0YEBHpmSdlOsLac='; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>Das Cam: your video starts before you tap Record</title>
-<meta name="description" content="Das Cam is a camera app for filmmakers who film with an iPhone or iPad. With Pre-Recording, your clip starts a few seconds before you tap Record. Join the beta on TestFlight.">
+<meta name="description" content="Das Cam is a camera app for iPhone and iPad, with professional camera controls for everyday video. With Pre-Recording, your clip starts a few seconds before you tap Record. Join the beta on TestFlight.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#060607">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#2b2d33" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Das Cam">
-<meta property="og:description" content="A camera app for filmmakers on iPhone and iPad. With Pre-Recording, your clip starts a few seconds before you tap Record.">
+<meta property="og:description" content="A camera app for iPhone and iPad, with professional camera controls for everyday video. With Pre-Recording, your clip starts a few seconds before you tap Record.">
 <meta property="og:type" content="website">
+<!-- Sets the light or dark choice before the page is drawn. Its hash is in the
+     Content-Security-Policy above: change one, change both (_tools/preview.sh checks it). -->
+<script>
+(function () {
+  var root = document.documentElement, key = "das-cam-theme";
+  var dark = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : { matches: false };
+  function stored() {
+    try { var v = localStorage.getItem(key); return v === "light" || v === "dark" ? v : null; } catch (e) { return null; }
+  }
+  function apply(theme) {
+    if (theme) root.setAttribute("data-theme", theme); else root.removeAttribute("data-theme");
+  }
+  apply(stored());
+  document.addEventListener("DOMContentLoaded", function () {
+    var group = document.querySelector(".theme-switch");
+    if (!group) return;
+    var buttons = group.querySelectorAll("button[data-theme-choice]");
+    function show() {
+      var theme = root.getAttribute("data-theme") || (dark.matches ? "dark" : "light");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].setAttribute("aria-pressed", buttons[i].getAttribute("data-theme-choice") === theme ? "true" : "false");
+      }
+      // The browser bar's colour: site.css's --paper for each theme (_tools/preview.sh checks they match).
+      var metas = document.querySelectorAll('meta[name="theme-color"]'), bar = { light: "#f3f1ec", dark: "#2b2d33" }[theme];
+      for (var j = 0; j < metas.length; j++) metas[j].setAttribute("content", bar);
+    }
+    function choose(theme) {
+      // A choice that matches the device's setting is not stored, so the page follows the device again.
+      var device = dark.matches ? "dark" : "light";
+      try { if (theme === device) localStorage.removeItem(key); else localStorage.setItem(key, theme); } catch (e) {}
+      apply(theme === device ? null : theme);
+      show();
+    }
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", function () { choose(this.getAttribute("data-theme-choice")); });
+    }
+    if (dark.addEventListener) dark.addEventListener("change", show); else if (dark.addListener) dark.addListener(show);
+    group.hidden = false;
+    show();
+  });
+})();
+</script>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/site.css">
@@ -18,35 +61,41 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header monitor">
+<header class="site-header">
   <div class="wrap">
     <a class="brand" href="./">
-      <img src="assets/icon-dark.png" alt="" width="64" height="64">
+      <img class="icon-light" src="assets/icon.png" alt="" width="64" height="64"><img class="icon-dark" src="assets/icon-dark.png" alt="" width="64" height="64">
       <span>Das Cam</span>
     </a>
-    <nav class="site-nav" aria-label="Main">
-      <ul>
-        <li class="wide-only"><a href="#features">Features</a></li>
-        <li class="wide-only"><a href="#devices">Devices</a></li>
-        <li class="wide-only"><a href="#feedback">Feedback</a></li>
-        <li><a href="privacy/">Privacy</a></li>
-      </ul>
-    </nav>
+    <div class="header-end">
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li class="wide-only"><a href="#features">Features</a></li>
+          <li class="wide-only"><a href="#devices">Devices</a></li>
+          <li class="wide-only"><a href="#feedback">Feedback</a></li>
+          <li><a href="privacy/">Privacy</a></li>
+        </ul>
+      </nav>
+      <div class="theme-switch" role="group" aria-label="Appearance" hidden>
+        <button type="button" data-theme-choice="light" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="2.75"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.2 3.2l1.06 1.06M11.74 11.74l1.06 1.06M3.2 12.8l1.06-1.06M11.74 4.26l1.06-1.06"/></svg><span class="word">Light</span></button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.6 10.1A5.9 5.9 0 0 1 5.9 2.4a5.9 5.9 0 1 0 7.7 7.7Z"/></svg><span class="word">Dark</span></button>
+      </div>
+    </div>
   </div>
 </header>
 
 <main id="main">
 
-  <section class="hero monitor" aria-labelledby="hero-title">
+  <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
       <div class="viewfinder framed">
         <div class="vf-top" aria-hidden="true"><span class="rec"><span class="rec-dot"></span>Rec</span><span>00:00:03:12</span></div>
         <div class="vf-body hero-grid">
           <div class="hero-text">
-            <p class="lockup"><img src="assets/icon-dark.png" alt="" width="256" height="256"><span>Das Cam</span></p>
-            <p class="label">For filmmakers on iPhone and iPad</p>
+            <p class="lockup"><img class="icon-light" src="assets/icon.png" alt="" width="256" height="256"><img class="icon-dark" src="assets/icon-dark.png" alt="" width="256" height="256"><span>Das Cam</span></p>
+            <p class="label">Professional camera controls for everyday video</p>
             <h1 id="hero-title">Your video starts before you tap Record.</h1>
-            <p class="lead">Das Cam is a camera app for enthusiast and professional filmmakers who film with an iPhone or iPad. While Pre-Recording is on, it keeps the last few seconds of video, so your clip includes what happened just before you tapped Record.</p>
+            <p class="lead">Das Cam is a camera app for iPhone and iPad, made for anyone who films, from family moments to sports. While Pre-Recording is on, it keeps the last few seconds of video, so your clip includes what happened just before you tapped Record.</p>
             <div class="actions">
               <a class="btn btn-rec" href="https://testflight.apple.com/join/zVCSNrWY">Join the beta</a>
               <a class="btn btn-line" href="#features">See what it does</a>
@@ -213,12 +262,12 @@
 
   <section class="section section-tight" id="join" aria-labelledby="join-title">
     <div class="wrap">
-      <div class="clapper monitor">
+      <div class="clapper">
         <div class="clapper-bar" aria-hidden="true"></div>
         <div class="clapper-body">
           <div>
             <p class="label" aria-hidden="true">Scene 07 · Take 1</p>
-            <h2 id="join-title">Join the <span class="name-with-icon"><img src="assets/icon-dark.png" alt="" width="256" height="256">Das Cam</span> beta</h2>
+            <h2 id="join-title">Join the <span class="name-with-icon"><img class="icon-light" src="assets/icon.png" alt="" width="256" height="256"><img class="icon-dark" src="assets/icon-dark.png" alt="" width="256" height="256">Das Cam</span> beta</h2>
             <p class="text">Try Das Cam on your next project, on the iPhone or iPad you already have.</p>
           </div>
           <a class="btn btn-rec" href="https://testflight.apple.com/join/zVCSNrWY">Join the beta</a>
@@ -241,10 +290,7 @@
   <div class="wrap">
     <div class="footer-top">
       <a class="brand" href="./">
-        <picture>
-          <source srcset="assets/icon-dark.png" media="(prefers-color-scheme: dark)">
-          <img src="assets/icon.png" alt="" width="64" height="64">
-        </picture>
+        <img class="icon-light" src="assets/icon.png" alt="" width="64" height="64"><img class="icon-dark" src="assets/icon-dark.png" alt="" width="64" height="64">
         <span>Das Cam</span>
       </a>
       <ul class="footer-links">
