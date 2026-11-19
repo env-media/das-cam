@@ -595,3 +595,44 @@ h1, h2, h3 {
 .prose th { background: var(--paper-2); font-family: var(--mono); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
 .prose th:first-child, .prose td:first-child { min-width: 6.5rem; }
 .prose tr:last-child td { border-bottom: 0; }
+
+/* SITE-TABLE1 begin: built by DSC docs/handoffs/tools/site1/premium-table.py */
+/* Free and Premium: the same list as the app's Premium sheet. On a phone each row stacks, its cells labelled. */
+.tiers { width: 100%; margin: 2.5rem 0 0; border-collapse: collapse; border-top: 1px solid var(--rule-strong); }
+.tiers th, .tiers td { text-align: left; vertical-align: top; padding: 1rem 1.25rem 1rem 0; border-bottom: 1px solid var(--rule); }
+.tiers thead th {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.tiers thead th.premium { color: var(--red-text); }
+.tiers tbody th { width: 34%; font-weight: 600; }
+.tiers td { color: var(--ink-2); }
+/* The app sheet's look (AJ, 11-18): every Premium cell ticked, stronger, on its own ground; Free ticked only where it
+   says what Premium says. */
+.tiers .premium { background: var(--paper-2); box-shadow: inset 2px 0 0 var(--red); padding-left: 1rem; }
+.tiers td.premium { color: var(--ink); font-weight: 600; }
+.tiers .tick { display: inline-block; margin-right: 0.45rem; font-weight: 700; color: var(--ink-2); }
+.tiers td.premium .tick { color: var(--red-text); }
+.tiers + .intro { margin-top: 1.5rem; }
+@media (max-width: 40rem) {
+  .tiers thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .tiers tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.35rem 1rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .tiers tbody th { grid-column: 1 / -1; width: auto; }
+  .tiers th, .tiers td { padding: 0; border: 0; }
+  .tiers td.premium { padding: 0.5rem 0.6rem; }
+  .tiers td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tiers td.premium::before { color: var(--red-text); }
+}
+/* SITE-TABLE1 end */
