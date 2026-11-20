@@ -550,6 +550,100 @@ h1, h2, h3 {
   .spec-shots .spec { margin: 0; }
 }
 
+/* Each App Store image opens full size over the page (assets/zoom.js, WEB-ZOOM1).
+   The magnifier in its corner says so; the view is dark in both modes, as a
+   photo viewer is. The page's zoom is never blocked: pinch works on a phone. */
+.zoom { display: block; position: relative; border-radius: 12px; cursor: zoom-in; }
+.zoom-hint {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgb(20 20 20 / 0.62);
+  color: #fff;
+  pointer-events: none;
+}
+.zoom-hint svg { width: 1.125rem; height: 1.125rem; }
+.zoom:hover .zoom-hint { background: rgb(20 20 20 / 0.85); }
+html.lb-open { overflow: hidden; }
+.lightbox {
+  color-scheme: dark;
+  --lb-ink: #f1eee7;
+  --lb-ink-2: #b4b0a7;
+  --lb-line: rgb(241 238 231 / 0.55);
+  --mark: #ffd60a;
+  position: fixed;
+  inset: 0;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background: #0c0d0f;
+  color: var(--lb-ink);
+  font-family: var(--sans);
+}
+.lightbox[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+.lightbox::backdrop { background: #0c0d0f; }
+.lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.625rem clamp(0.75rem, 3vw, 1.5rem); }
+.lb-nav { justify-content: center; }
+.lb-nav[hidden] { display: none; }
+.lb-count { margin: 0; font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lb-ink-2); }
+.lb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--lb-line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--lb-ink);
+  font: 600 1rem/1.2 var(--sans);
+  cursor: pointer;
+}
+.lb-btn svg { width: 1rem; height: 1rem; flex: none; }
+.lb-btn:hover { border-color: var(--lb-ink); background: rgb(241 238 231 / 0.12); }
+/* The image is as large as the space between the bars allows, at its own shape. */
+.lb-stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 0 0.5rem; container-type: size; }
+.lb-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: min(100cqw, 100cqh * var(--lb-ratio, 0.5625));
+  height: auto;
+  aspect-ratio: var(--lb-ratio, 0.5625);
+  border-radius: 6px;
+  cursor: default;
+}
+.lb-img[hidden], .lb-status[hidden] { display: none; }
+.lb-status {
+  position: absolute;
+  left: 50%;
+  bottom: 0.75rem;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.72);
+  color: var(--lb-ink);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox[open], .lightbox[open]::backdrop { animation: lb-in 0.18s ease-out; }
+  .lb-btn, .zoom-hint { transition: background-color 0.15s ease, border-color 0.15s ease; }
+}
+@keyframes lb-in { from { opacity: 0; } }
+
 /* Camera controls: focus and exposure screens, then a spec sheet */
 
 .controls { display: grid; gap: 2rem; margin-top: 2.5rem; }

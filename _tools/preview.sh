@@ -43,7 +43,7 @@ assert bar == paper, "the script's theme-color %s differs from site.css's --pape
 print("check theme-color = --paper", bar)
 PY
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-LIVE="https://env-media.github.io/das-cam"
+LIVE="https://dascam.app"   # the old github.io address only redirects here (DOMAIN1)
 PORT="${PREVIEW_PORT:-8137}"
 mkdir -p "$OUT"
 ROOT="$(mktemp -d)"
