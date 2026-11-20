@@ -69,7 +69,7 @@
   --screen: #121316;
 }
 
-/* Pictures of a dark screen (the film strip, the focus and exposure screens):
+/* Pictures of a dark screen (the film strip):
    dark gray in both modes, as the app's own camera screen is dark, and darker
    than the dark page. The frame lines around a screen stand on the page, so
    they keep the page's colour. */
@@ -152,6 +152,11 @@ h1, h2, h3 {
 }
 
 .nowrap { white-space: nowrap; }
+
+/* A name the reader finds and uses in the app (a setting, a button, a screen): the index's "Writing names" note. */
+strong { font-weight: 700; color: var(--ink); }
+/* A Premium cell is already semibold, so a name in it goes one step heavier to stand apart. */
+.tiers td.premium strong { font-weight: 800; }
 
 .skip {
   position: absolute;
@@ -648,30 +653,16 @@ html.lb-open { overflow: hidden; }
 
 .controls { display: grid; gap: 2rem; margin-top: 2.5rem; }
 @media (min-width: 48rem) {
-  .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Side by side, each caption as wide as its device. */
+  .controls { grid-template-columns: repeat(2, minmax(0, 19rem)); column-gap: clamp(2rem, 6vw, 5rem); }
 }
-.screen {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  margin-bottom: 1.25rem;
-  background-color: var(--paper);
-  background-image: linear-gradient(#41464f, #2c3037 72%, #2a302a 72%);
-  background-clip: content-box;
-  padding: 0.6rem;
-}
-.screen .mark { position: absolute; width: 22%; color: var(--yellow); }
-.screen .mark svg { display: block; width: 100%; height: auto; }
-.screen .mark span {
-  display: block;
-  margin-top: 0.35rem;
-  text-align: center;
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.screen-focus .mark { left: 22%; top: 22%; }
-.screen-exposure .mark { right: 18%; top: 14%; }
+/* Each card is the app's screen on an iPhone held upright, drawn by _tools/draw-controls.py in the app's points. */
+.device { width: min(100%, 19rem); margin-bottom: 1.25rem; }
+.device svg { display: block; width: 100%; height: auto; }
+.device text { font-family: var(--sans); }
+.device .fe-mono { font-family: var(--mono); }
+.device .fe-round { font-family: ui-rounded, "SF Pro Rounded", var(--sans); }
+.device .device-edge { fill: #0c0d0f; stroke: var(--rule-strong); stroke-width: 1.5; }
 .control h3 { font-size: 1.625rem; }
 .control p { margin: 0.5rem 0 0; color: var(--ink-2); }
 
