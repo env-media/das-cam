@@ -21,7 +21,7 @@ For any question or request about your data, write to contact@env-media.com.
   China, no analytics are sent unless you turn them on (how the app tells where you are is explained below).
   Elsewhere, basic usage analytics, including how warm your device runs, are always on, and the optional device
   diagnostics can be turned off.
-- A problem report is sent only after you have reviewed it and tapped **Send**. It goes to Sentry, stored in the EU,
+- A problem report is sent only after you have reviewed it and tapped *Send*. It goes to Sentry, stored in the EU,
   and we delete it once its problem is fixed, within 90 days at most. No AI tool reads a report from an App Store
   user or an external tester.
 - When you pair two devices, they talk to each other directly. Nothing passes through an internet server.
@@ -41,14 +41,14 @@ For any question or request about your data, write to contact@env-media.com.
 
 ## What Stays on Your Device
 
-- **Recordings.** Kept in Das Cam's own storage on your device. Das Cam lists them on its **Recordings** screen, where you
+- **Recordings.** Kept in Das Cam's own storage on your device. Das Cam lists them on its *Recordings* screen, where you
   can play, share, delete, or save each one to your Photos library. Das Cam asks for permission to add to Photos only
   when you choose to save there; once you allow it, new recordings are saved to Photos automatically, and a recording
   leaves Das Cam's storage once Photos has it. Das Cam reads your Photos library only if you also allow it to show the
   recordings it saved there, and then it reads only those videos, found by the identifiers it kept when saving them.
   It never looks at your other photos or videos. Das Cam's storage is
   included in your device backups and shows in the Files app.
-- **Location in your clips.** Off unless you turn it on. If you turn on **Settings > Embed Location in Clips**, Das Cam
+- **Location in your clips.** Off unless you turn it on. If you turn on *Settings > Embed Location in Clips*, Das Cam
   asks to use your location while the app is open, and writes where you were into the clips you record, in the same
   form the built-in Camera app uses. Clips also carry the device make and model, the lens, and the date. A paired
   Controller can switch this setting on the Recorder, but the Recorder adds location only if location permission was
@@ -101,7 +101,7 @@ event per screen visit or per minute. For each gesture: its kind (tap, double ta
 it started, as a percentage across and down the screen; for swipes, drags, and long presses, its path, sampled up to 8
 times a second for up to 3 seconds; how long the finger stayed down; which of the app's controls responded, or that
 none did; and what the app did as a result (for example, started a recording or changed the zoom). Each batch also
-notes which of the app's screens was open (for example, the camera or **Settings**), whether the device was the Recorder
+notes which of the app's screens was open (for example, the camera or *Settings*), whether the device was the Recorder
 or the Controller, and how it was held, and counts touches that nothing answered. This is a label for the screen, not
 a picture of it: Das Cam never takes screenshots or records your screen. Touch analytics never include what the camera
 sees, any text you type, or any names.
@@ -131,11 +131,11 @@ A second kind of analytics describes your devices and their surroundings rather 
 | Everywhere else | Always on, from the first launch; no switch | On; you can turn it off |
 
 You make your choice on the first-run screen. In the EEA, the UK, Switzerland, and China it asks you one question,
-whether to share anonymous usage data, with two buttons of equal weight, **Share** and **Don't Share**; nothing is chosen for
-you, **Don't Share** sends nothing, and device diagnostics are sent only if you also turn on their switch. You can change
-your choice later in Das Cam's **Settings**, in the **Privacy**
-section: **Share Anonymous Usage Data** (shown only where usage analytics need your permission) and
-**Share Device Diagnostics** (shown everywhere). Turning a switch off takes effect at once, and events of that kind that have not been
+whether to share anonymous usage data, with two buttons of equal weight, *Share* and *Don't Share*; nothing is chosen for
+you, *Don't Share* sends nothing, and device diagnostics are sent only if you also turn on their switch. You can change
+your choice later in Das Cam's *Settings*, in the *Privacy*
+section: *Share Anonymous Usage Data* (shown only where usage analytics need your permission) and
+*Share Device Diagnostics* (shown everywhere). Turning a switch off takes effect at once, and events of that kind that have not been
 sent yet are deleted from your device. Without a connection, events wait on your device until they can be sent.
 
 ### How Das Cam Knows Which Rules Apply
@@ -151,8 +151,8 @@ in one of those regions, it stops sending, deletes any events waiting to be sent
 
 ## Problem Reports
 
-You can send us a report from **Settings > Report a Problem**, or when Das Cam offers to after a crash. The report is built
-on your device, and nothing is sent until you have been able to read every part of it and have tapped **Send**. A report
+You can send us a report from *Settings > Report a Problem*, or when Das Cam offers to after a crash. The report is built
+on your device, and nothing is sent until you have been able to read every part of it and have tapped *Send*. A report
 contains:
 
 - what you wrote (required), and the kind of problem you picked;
@@ -172,10 +172,10 @@ contains:
   if you ask us for help. It identifies no person and links to no account, and it changes once it is used or the app
   updates.
 
-**Send** uploads the report to Sentry, which stores it for us in its EU data region. The app sends no user ID, name, or
-email address with it, and tells Sentry not to store your IP address. You can tap **Share Instead** to send the file
+*Send* uploads the report to Sentry, which stores it for us in its EU data region. The app sends no user ID, name, or
+email address with it, and tells Sentry not to store your IP address. You can tap *Share Instead* to send the file
 yourself, for example by email. If Das Cam cannot reach Sentry, it keeps the report and sends it later by itself; until
-then the report waits at the top of **Report a Problem**, where you can share or delete it. We use reports only to
+then the report waits at the top of *Report a Problem*, where you can share or delete it. We use reports only to
 diagnose and fix problems, and no AI tool reads a report from an App Store user or an external tester (see "AI Tools
 and Reports").
 
@@ -183,7 +183,7 @@ and Reports").
 
 - A problem report you send can carry the crash and hang reports iOS gave the app (above).
 - With device diagnostics on, the app sends the daily counts of how it ended (above).
-- If you have turned on **Share With App Developers** in iOS (**Settings > Privacy & Security > Analytics & Improvements**),
+- If you have turned on *Share With App Developers* in iOS (*Settings > Privacy & Security > Analytics & Improvements*),
   Apple shares crash reports and other diagnostics about Das Cam with us, under Apple's privacy policy. If you test a
   beta through TestFlight, crash reports and feedback you send through TestFlight also reach us through Apple.
 - Das Cam contains no third-party crash-reporting software.
@@ -219,7 +219,7 @@ Das Cam can pair two devices so that one (the Controller) can see and control th
 - While Das Cam is looking for a device, or is ready for a device it has already paired with, it announces itself
   to nearby devices. The announcement names the device type with a short code (for example "iPhone-7B91") and
   the hardware model, not the name you gave your device.
-- Pairing starts only when one person taps **Pair** and the other allows it, and both confirm that their devices show the
+- Pairing starts only when one person taps *Pair* and the other allows it, and both confirm that their devices show the
   same 6-digit code. After that, the two devices prove to each other that they share the pairing key before either
   accepts a command or video, and the commands and video between them are encrypted. How the pairing and its
   encryption work, step by step: <https://dascam.app/pairing-protocol/>.
@@ -287,11 +287,11 @@ Clauses, with the UK's addendum and the adjustments for Switzerland.
 
 ## Your Choices and Rights
 
-- **Analytics switches:** **Settings > Privacy** (see "Your Region Decides the Defaults").
-- **Location in clips:** **Settings > Embed Location in Clips**, or iOS
-  **Settings > Privacy & Security > Location Services > Das Cam**.
-- **Problem reports** are sent only when you tap **Send**. A report waiting to be sent can be deleted at the top of
-  **Report a Problem**.
+- **Analytics switches:** *Settings > Privacy* (see "Your Region Decides the Defaults").
+- **Location in clips:** *Settings > Embed Location in Clips*, or iOS
+  *Settings > Privacy & Security > Location Services > Das Cam*.
+- **Problem reports** are sent only when you tap *Send*. A report waiting to be sent can be deleted at the top of
+  *Report a Problem*.
 - **Deleting Das Cam** stops all collection.
 - **Requests:** write to contact@env-media.com to ask for a copy of your data, to correct or delete it, to object to
   how it is used, or to withdraw your consent. Analytics are tied only to a random installation ID that the app does
@@ -302,7 +302,7 @@ Clauses, with the UK's addendum and the adjustments for Switzerland.
 
 ## Legal Bases (EEA, UK, and Switzerland)
 
-- Usage analytics and device diagnostics: your consent, which you can withdraw at any time in **Settings > Privacy**.
+- Usage analytics and device diagnostics: your consent, which you can withdraw at any time in *Settings > Privacy*.
 - Problem reports: your request that we look into a problem.
 - The country request to Cloudflare: our legitimate interest in showing each person the privacy choices that apply
   where they are. Consent cannot come first, because this check is what decides which consent rules apply. The app
@@ -319,7 +319,7 @@ you think a child has sent us a problem report, contact us and we will delete it
 
 We will post any change to this policy on this page, with a new effective date. A change that adds new collection
 usually belongs to a feature you choose to turn on, and the app explains that feature where you find it, especially
-in **Settings**.
+in *Settings*.
 
 ## Contact
 

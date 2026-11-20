@@ -153,11 +153,6 @@ h1, h2, h3 {
 
 .nowrap { white-space: nowrap; }
 
-/* A name the reader finds and uses in the app (a setting, a button, a screen): the index's "Writing names" note. */
-strong { font-weight: 700; color: var(--ink); }
-/* A Premium cell is already semibold, so a name in it goes one step heavier to stand apart. */
-.tiers td.premium strong { font-weight: 800; }
-
 .skip {
   position: absolute;
   left: -9999px;
