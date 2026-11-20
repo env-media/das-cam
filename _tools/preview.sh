@@ -2,6 +2,7 @@
 # Renders the site with headless Google Chrome for review, without Jekyll.
 #   _tools/preview.sh <out-dir>          the full set of review shots
 #   _tools/preview.sh <out-dir> theme    the light/dark sheets only
+#   _tools/preview.sh <out-dir> dark     the dark-mode sheets (the top at 1280 and 390, the whole page at 1280)
 # index.html is served as it is. The Markdown pages (privacy/, pairing-protocol/)
 # are rendered by wrapping the LIVE site's kramdown output in _layouts/default.html,
 # so they show the published words: a local change to a .md file is not shown.
@@ -121,7 +122,7 @@ HTML
 # the header and the hero dark gray (the dark page's colours) whatever the theme.
 cat > "$ROOT/preview.css" <<'CSS'
 .pv-hero-dark .site-header, .pv-hero-dark .hero {
-  color-scheme: dark; --paper: #2b2d33; --paper-2: #32343a; --ink: #ece9e2; --ink-2: #a9a59c;
+  color-scheme: dark; --paper: #1a1b1f; --paper-2: #202125; --ink: #ece9e2; --ink-2: #a9a59c;
   --rule: rgb(236 233 226 / 0.14); --rule-strong: rgb(236 233 226 / 0.5); --frame: rgb(236 233 226 / 0.7);
   --grid: rgb(236 233 226 / 0.06); --mark: #ffd60a; --red-text: #ff7469; --btn-rec-hover: #ffffff;
   --shot-shadow: 0 14px 34px rgb(0 0 0 / 0.45); background-color: var(--paper); color: var(--ink);
@@ -162,6 +163,19 @@ shot() { # name path width mode scale full|top|<height>
   sips -c $(( height * $5 )) $(( $3 * $5 )) "$OUT/$1.png" >/dev/null
   printf '%-30s width %4s  page width %4s %-8s height %5s  dark %-5s  switch %s\n' "$1" "$3" "$w" "$([ "$w" -le "$3" ] && echo ok || echo SIDEWAYS)" "$h" "$dk" "$swt"
 }
+if [ "$SET" = dark ]; then
+  MOTION=--force-prefers-reduced-motion
+  shot index-dark-top-1280x900         / 1280 dark 1 900
+  shot index-dark-top-390x844          / 390 dark 2 844
+  shot index-dark-1280                 / 1280 dark 1 full
+  for u in / /privacy/ /pairing-protocol/; do
+    for wd in 320 375 390; do
+      read -r w h dk swt < <(measure "$u" "$wd" dark)
+      printf 'check %-20s width %4s dark  page width %4s %s\n' "$u" "$wd" "$w" "$([ "$w" -le "$wd" ] && echo ok || echo SIDEWAYS)"
+    done
+  done
+  exit 0
+fi
 if [ "$SET" = theme ]; then
   # Reduced motion stops the record dot's pulse, so two shots of the same page are byte-identical.
   MOTION=--force-prefers-reduced-motion

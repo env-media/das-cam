@@ -27,17 +27,18 @@
   --gutter: clamp(16px, 4vw, 40px);
   --shot-shadow: 0 14px 34px rgb(20 20 20 / 0.18);
   --btn-rec-hover: #3b3934;
+  --screen: #1f2024;
 }
 :root[data-theme="light"] { color-scheme: light; }
 
-/* Dark is a dark gray, not black, so the app icon's near-black tile stands
-   clear of the page. The two blocks below must stay identical: the first is
-   the device's setting, the second the switch's choice (_tools/preview.sh
-   checks it). */
+/* Dark is a dark gray, about halfway between #2b2d33 and black (AJ, 11-19),
+   not black. The two blocks below must stay identical: the first is the
+   device's setting, the second the switch's choice (_tools/preview.sh checks
+   it). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #2b2d33;
-    --paper-2: #32343a;
+    --paper: #1a1b1f;
+    --paper-2: #202125;
     --ink: #ece9e2;
     --ink-2: #a9a59c;
     --rule: rgb(236 233 226 / 0.14);
@@ -48,12 +49,13 @@
     --red-text: #ff7469;
     --shot-shadow: 0 14px 34px rgb(0 0 0 / 0.45);
     --btn-rec-hover: #ffffff;
+    --screen: #121316;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #2b2d33;
-  --paper-2: #32343a;
+  --paper: #1a1b1f;
+  --paper-2: #202125;
   --ink: #ece9e2;
   --ink-2: #a9a59c;
   --rule: rgb(236 233 226 / 0.14);
@@ -64,14 +66,16 @@
   --red-text: #ff7469;
   --shot-shadow: 0 14px 34px rgb(0 0 0 / 0.45);
   --btn-rec-hover: #ffffff;
+  --screen: #121316;
 }
 
 /* Pictures of a dark screen (the film strip, the focus and exposure screens):
-   dark gray in both modes, as the app's own camera screen is dark. The frame
-   lines around a screen stand on the page, so they keep the page's colour. */
+   dark gray in both modes, as the app's own camera screen is dark, and darker
+   than the dark page. The frame lines around a screen stand on the page, so
+   they keep the page's colour. */
 .monitor {
   color-scheme: dark;
-  --paper: #1f2024;
+  --paper: var(--screen);
   --paper-2: #27282d;
   --ink: #f1eee7;
   --ink-2: #b4b0a7;

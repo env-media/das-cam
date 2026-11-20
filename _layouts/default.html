@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self' 'sha256-npJ16+W7NGo6q+OSHF3W4l3r4tcs0YEBHpmSdlOsLac='; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self' 'sha256-6ufDP0TH0U/FzlkZZpRZVp9ZFgZRV91By8gcoqSk2fo='; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>{{ page.title }}</title>
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#2b2d33" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#1a1b1f" media="(prefers-color-scheme: dark)">
 <!-- This layout serves the Markdown pages, each one folder below the site's
      root (privacy/, pairing-protocol/), so every link starts with "../" and
      the site works at any address. It replaces the GitHub theme's layout,
@@ -35,7 +35,7 @@
         buttons[i].setAttribute("aria-pressed", buttons[i].getAttribute("data-theme-choice") === theme ? "true" : "false");
       }
       // The browser bar's colour: site.css's --paper for each theme (_tools/preview.sh checks they match).
-      var metas = document.querySelectorAll('meta[name="theme-color"]'), bar = { light: "#f3f1ec", dark: "#2b2d33" }[theme];
+      var metas = document.querySelectorAll('meta[name="theme-color"]'), bar = { light: "#f3f1ec", dark: "#1a1b1f" }[theme];
       for (var j = 0; j < metas.length; j++) metas[j].setAttribute("content", bar);
     }
     function choose(theme) {
