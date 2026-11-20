@@ -222,7 +222,7 @@ Das Cam can pair two devices so that one (the Controller) can see and control th
 - Pairing starts only when one person taps Pair and the other allows it, and both confirm that their devices show the
   same 6-digit code. After that, the two devices prove to each other that they share the pairing key before either
   accepts a command or video, and the commands and video between them are encrypted. How the pairing and its
-  encryption work, step by step: <https://env-media.github.io/das-cam/pairing-protocol/>.
+  encryption work, step by step: <https://dascam.app/pairing-protocol/>.
 - The Controller receives the Recorder's live preview and a small thumbnail of each finished recording, with its length
   and size. The recordings themselves stay on the Recorder.
 

@@ -11,7 +11,7 @@
 set -uo pipefail
 SHA="${1:?usage: check-live.sh <sha> <baseline-privacy.html>}"
 BASE="${2:?usage: check-live.sh <sha> <baseline-privacy.html>}"
-LIVE="https://env-media.github.io/das-cam"
+LIVE="https://dascam.app"
 TMP="$(mktemp -d)"; trap 'rm -rf "${TMP:?}"' EXIT
 fail=0
 build="$(gh api repos/env-media/das-cam/pages/builds/latest --jq '.status + " " + .commit[0:7]' 2>&1)"
