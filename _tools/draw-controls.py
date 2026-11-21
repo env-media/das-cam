@@ -19,7 +19,7 @@ The colours are SwiftUI's system colours in dark appearance, which the App Store
 assets/shots/shot-1-2950.jpg: the AF square #FF4131, the AE circle #FFD700). Everything else on the screen (the
 corner groups, the readout, the side buttons) is drawn as plain shapes, so the two subjects stand out.
 """
-import importlib.util, os, re
+import importlib.util, math, os, re
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RED, YELLOW, ORANGE, FIG = "#FF453A", "#FFD60A", "#FF9F0A", "#f1eee7"
@@ -143,8 +143,35 @@ def chrome():
     return "".join(out)
 
 
+def standing(*args):
+    """strip.person, with its side-view boots swapped for feet seen from the front (WEB-FEET1, AJ 11-21): each a short
+    rounded shape whose heel sits under the ankle and whose toe points down the page and 25 degrees outward, the left
+    foot to the left and the right to the right, so no toe rises above its sole."""
+    ankles = []
+    side_view = strip.capsule
+
+    def capsule(p1, p2, w1, w2):
+        if (w1, w2) == (3.8, 2.6):   # the boot: ankle to toe
+            ankles.append(p1)
+            return ""
+        return side_view(p1, p2, w1, w2)
+
+    strip.capsule = capsule
+    try:
+        body = strip.person(*args)
+    finally:
+        strip.capsule = side_view
+    feet = []
+    for ankle in ankles:
+        out = -1 if ankle[0] < 0 else 1
+        heel = (ankle[0], ankle[1] + 0.6)
+        toe = (heel[0] + out * 3.0 * math.sin(math.radians(25)), heel[1] + 3.0 * math.cos(math.radians(25)))
+        feet.append(side_view(heel, toe, 3.4, 4.0))
+    return body + "".join(feet)
+
+
 def scene(k):
-    person = strip.person((0, 0), 180, False, 0, ((-10, -4), (10, 4)), ((-4, 0, 90), (4, 0, 90)))
+    person = standing((0, 0), 180, False, 0, ((-10, -4), (10, 4)), ((-4, 0, 90), (4, 0, 90)))
     return (f'<rect width="{W}" height="{H}" fill="url(#fe-sky-{k})"/>'
             '<rect y="600" width="393" height="252" fill="#2a302a"/>'
             f'<g fill="{FIG}" transform="translate(228 470) scale(5)">{person}</g>')
