@@ -844,6 +844,9 @@ html.lb-open { overflow: hidden; }
 /* WEB-FREE1 (AJ, 2026-11-21): Free reads as a full offer, in ink at the Feature column's weight with green ticks;
    Premium keeps its ground, its red rule and its red ticks, so it reads as what it adds on top. */
 .tiers thead th.free { color: var(--ink); }
+/* WEB-PRICE1: the price under PREMIUM, in the page's own text, not the label's small capitals. */
+.tiers .price { display: block; margin-top: 0.3rem; font-family: var(--sans); font-size: 0.9375rem; font-weight: 600;
+  letter-spacing: 0; text-transform: none; color: var(--ink); }
 .tiers tbody th { width: 34%; font-weight: 600; }
 .tiers td { color: var(--ink-2); }
 /* The app sheet's look (AJ, 11-18): every Premium cell ticked, stronger, on its own ground; Free ticked only where it
@@ -856,11 +859,13 @@ html.lb-open { overflow: hidden; }
 .tiers td.free .tick { color: var(--green); }
 .tiers + .intro { margin-top: 1.5rem; }
 @media (max-width: 40rem) {
-  .tiers thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  /* The header row stays on a phone, so the price shows; its Feature cell is for screen readers only. */
+  .tiers thead th:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .tiers tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.35rem 1rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
   .tiers tbody th { grid-column: 1 / -1; width: auto; }
   .tiers th, .tiers td { padding: 0; border: 0; }
-  .tiers td.premium { padding: 0.5rem 0.6rem; }
+  .tiers td.premium, .tiers thead th.premium { padding: 0.5rem 0.6rem; }
+  .tiers thead th.free { padding-top: 0.5rem; }
   .tiers td::before {
     content: attr(data-label);
     display: block;
