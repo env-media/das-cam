@@ -61,6 +61,7 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/zoom.js" defer></script>
+<script src="assets/ram1.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -151,6 +152,51 @@
         <li><span class="label">Tap Record</span>Tap <em>Record</em> after something happens.</li>
         <li><span class="label">Stop</span>Stop when you are done. The clip starts a few seconds before the tap.</li>
       </ol>
+      <details class="disclosure" id="smart-buffering">
+        <summary>Smart Buffering. Less Unnecessary Writing</summary>
+        <div class="disclosure-body">
+          <p>While Pre-Recording is on, Das Cam keeps the newest few seconds of video in your device’s memory, and newer frames replace the oldest ones. It does not keep writing that video to storage while it waits. When you tap <em>Record</em>, the seconds in memory become the start of your clip, and the clip is saved to storage like any other recording.</p>
+          <div class="ram monitor framed" data-state="wait">
+            <svg class="ram-svg" viewBox="0 0 340 226" aria-hidden="true" focusable="false">
+              <g class="ram-stage">
+                <rect class="ram-line" x="43" y="58" width="48" height="32" rx="6"/>
+                <rect class="ram-line" x="55" y="51" width="16" height="7" rx="2"/>
+                <circle class="ram-line" cx="67" cy="74" r="9"/>
+                <circle class="ram-light" cx="83" cy="64" r="2.6"/>
+                <text class="ram-label" x="67" y="113">Camera</text>
+              </g>
+              <path class="ram-track" d="M99 74H170"/>
+              <path class="ram-track-head" d="M165 69l6 5-6 5"/>
+              <circle class="ram-ring" cx="235" cy="74" r="52"/>
+              <g class="ram-slots"></g>
+              <text class="ram-label" x="235" y="78">Memory</text>
+              <text class="ram-label ram-label-start" x="16" y="154">Saved Video</text>
+              <circle class="ram-dot" cx="277" cy="150.5" r="3"/>
+              <text class="ram-status ram-status-wait" x="284" y="154">Idle</text>
+              <text class="ram-status ram-status-rec" x="284" y="154">Saving</text>
+              <rect class="ram-box" x="16" y="162" width="308" height="34" rx="6"/>
+              <g class="ram-cells"></g>
+              <g class="ram-marks"></g>
+              <g class="ram-frames"></g>
+            </svg>
+            <div class="ram-state" aria-hidden="true">
+              <p class="ram-state-wait">Waiting. Memory keeps the newest frames, and each new frame replaces the oldest one there. Saved Video is idle.</p>
+              <p class="ram-state-rec">Recording. The frames from memory are the start of the saved video, and new frames are added after them.</p>
+              <p class="ram-state-done">Your video includes the seconds before you tapped <em>Record</em>. It goes on recording until you stop it.</p>
+            </div>
+            <p class="ram-live" aria-live="polite"></p>
+            <div class="ram-controls" hidden>
+              <button type="button" class="btn btn-rec ram-btn" data-ram="record">Record</button>
+              <button type="button" class="btn btn-line ram-btn" data-ram="reset" disabled>Start Over</button>
+            </div>
+          </div>
+          <ol class="ram-steps">
+            <li><span class="label">Waiting</span>The camera sends each new frame to memory. Memory keeps the newest seconds, 2 seconds free or up to 30 seconds with Premium, as your device’s memory allows, and the oldest frames are replaced. Saved Video stays idle.</li>
+            <li><span class="label">After You Tap Record</span>The frames in memory become the start of the saved video, and each new frame is added after them until you stop. So the video includes what happened before you tapped <em>Record</em>.</li>
+          </ol>
+          <p class="caption">A simplified picture: the app keeps and replaces video in groups of frames, not one frame at a time.</p>
+        </div>
+      </details>
     </div>
   </section>
 
