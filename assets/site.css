@@ -644,38 +644,25 @@ html.lb-open { overflow: hidden; }
 }
 @keyframes lb-in { from { opacity: 0; } }
 
-/* WEB-RAM1: the "Smart Buffering" disclosure in the Pre-Recording section, and its memory picture (assets/ram1.js). */
-.disclosure { margin: 2.5rem 0 0; border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); }
-.disclosure summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.1rem 0;
-  font-family: var(--serif);
-  font-size: 1.375rem;
-  font-weight: 600;
-  line-height: 1.2;
-  cursor: pointer;
-  list-style: none;
+/* WEB-RAM1 and WEB-RAM2: the "Smart Buffering" block under the Pre-Recording steps, always shown, and its memory
+   picture (assets/ram1.js). On a wide screen the words sit beside the picture. */
+.buffering { display: grid; margin: 3rem 0 0; padding-top: 2rem; border-top: 1px solid var(--rule); }
+.buffering-title { font-size: 1.625rem; }
+.buffering-text { margin: 0.75rem 0 0; max-width: 42rem; }
+@media (min-width: 60rem) {
+  .buffering {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 30rem);
+    grid-template-areas: "title ram" "text ram" "steps ram" "caption ram";
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+  .buffering-title { grid-area: title; }
+  .buffering-text { grid-area: text; }
+  .buffering .ram { grid-area: ram; margin-top: 0; }
+  .buffering .ram-steps { grid-area: steps; }
+  .buffering .caption { grid-area: caption; }
 }
-.disclosure summary::-webkit-details-marker { display: none; }
-.disclosure summary::after {
-  content: "";
-  flex: none;
-  width: 0.6rem;
-  height: 0.6rem;
-  margin-right: 0.3rem;
-  border-right: 2px solid var(--ink);
-  border-bottom: 2px solid var(--ink);
-  transform: translateY(-0.2rem) rotate(45deg);
-}
-.disclosure[open] summary::after { transform: translateY(0.15rem) rotate(225deg); }
-@media (prefers-reduced-motion: no-preference) {
-  .disclosure summary::after { transition: transform 0.2s ease; }
-}
-.disclosure-body { padding: 0 0 1.75rem; }
-.disclosure-body > p:first-child { margin: 0; max-width: 42rem; }
 
 .ram { max-width: 34rem; margin: 1.5rem 0 0; padding: clamp(0.75rem, 3vw, 1.25rem); }
 .ram-svg { display: block; width: 100%; height: auto; }

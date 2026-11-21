@@ -2,12 +2,11 @@
 // Waiting: the camera sends frames into a ring of eight places in memory; the ring turns one place per frame, so the
 // place at the entry always holds the oldest frame, which the new one replaces. Record: the frames in memory move, oldest
 // first, to the start of the saved video, and new frames follow them. It is a simplified picture (the app keeps and
-// replaces groups of frames), and it runs only while its disclosure is open and on screen. With reduced motion it is a
-// still picture of each state.
+// replaces groups of frames). It animates whenever it is on screen (WEB-RAM2: the block is always shown) and pauses off
+// screen or in a hidden tab. With reduced motion it is a still picture of each state.
 (function () {
   var root = document.querySelector(".ram");
   if (!root) return;
-  var details = root.closest("details");
   var svg = root.querySelector(".ram-svg");
   var layer = svg.querySelector(".ram-frames");
   var marks = svg.querySelector(".ram-marks");
@@ -204,16 +203,11 @@
     wake();
   }
 
-  var open = details ? details.open : true, visible = false;
+  var visible = false;
   function update() {
-    running = open && visible && !document.hidden;
+    running = visible && !document.hidden;
     if (running) wake();
   }
-  if (details) details.addEventListener("toggle", function () {
-    open = details.open;
-    if (open && state === "done" && !flying.length) begin();
-    update();
-  });
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; update(); }).observe(root);
   } else { visible = true; }
