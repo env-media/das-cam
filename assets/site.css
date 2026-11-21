@@ -858,6 +858,9 @@ html.lb-open { overflow: hidden; }
 .tiers td.free { color: var(--ink); font-weight: 600; }
 .tiers td.free .tick { color: var(--green); }
 .tiers td.more { font-size: 0.875rem; color: var(--ink-2); }
+/* WEB-TABLE2: a feature name that links to its section, a quiet link that turns red on hover. */
+.tiers a.tiers-link { text-decoration-color: var(--rule-strong); text-decoration-thickness: 1px; }
+.tiers a.tiers-link:hover { text-decoration-color: var(--red); }
 .tiers + .intro { margin-top: 1.5rem; }
 @media (max-width: 40rem) {
   /* The header row stays on a phone, so the price shows; its Feature cell is for screen readers only. */
