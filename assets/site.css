@@ -857,6 +857,7 @@ html.lb-open { overflow: hidden; }
 .tiers td.premium .tick { color: var(--red-text); }
 .tiers td.free { color: var(--ink); font-weight: 600; }
 .tiers td.free .tick { color: var(--green); }
+.tiers td.more { font-size: 0.875rem; color: var(--ink-2); }
 .tiers + .intro { margin-top: 1.5rem; }
 @media (max-width: 40rem) {
   /* The header row stays on a phone, so the price shows; its Feature cell is for screen readers only. */
@@ -876,5 +877,7 @@ html.lb-open { overflow: hidden; }
     text-transform: uppercase;
   }
   .tiers td.premium::before { color: var(--red-text); }
+  .tiers td.more { grid-column: 1 / -1; }
+  .tiers td.more::before { content: none; }
 }
 /* SITE-TABLE1 end */
